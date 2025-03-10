@@ -5,9 +5,9 @@ use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::resource('locations', LocationController::class);
 Route::resource('lecture', LectureController::class);
@@ -17,4 +17,3 @@ Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('a
 
 // Handle callback dari Google setelah login
 Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
-
