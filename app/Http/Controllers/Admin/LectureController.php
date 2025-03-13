@@ -13,6 +13,7 @@ class LectureController extends Controller
     {
         $datas = Lecture::all();
 
+        dd($datas);
         // return the view with the data
     }
 
@@ -37,7 +38,7 @@ class LectureController extends Controller
         }
 
         Lecture::create($request->all());
-        
+
         // return success message
     }
 
