@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('mentor_id')->constrained('lectures')->cascadeOnDelete();
             $table->foreignId('second_mentor_id')->constrained('lectures')->cascadeOnDelete();
             $table->string('doc_pra_proposal');
+            $table->boolean('is_submit');
             $table->timestamps();
         });
     }

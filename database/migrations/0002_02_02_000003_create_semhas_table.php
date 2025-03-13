@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('sempro_id')->constrained('sempro')->cascadeOnDelete();
             $table->foreignId('periode_id')->constrained('periodes')->cascadeOnDelete();
             $table->string('kompre');
+            $table->boolean('is_submit');
             $table->timestamps();
         });
     }

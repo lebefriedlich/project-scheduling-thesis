@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->morphs('exam');
             $table->foreignId('location_id')->constrained('locations')->cascadeOnDelete();
-            $table->dateTime('start_schedule');
-            $table->dateTime('end_schedule');
+            $table->date('schedule_date');
+            $table->time('start_time');
+            $table->time('end_time');
             $table->timestamps();
         });
     }
