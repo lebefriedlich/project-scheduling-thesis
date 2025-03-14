@@ -33,7 +33,7 @@ class SchedulingController extends Controller
             ->get();
 
 
-        // return data skripsi
+        // return data response
     }
 
     public function scheduling(Request $request)
