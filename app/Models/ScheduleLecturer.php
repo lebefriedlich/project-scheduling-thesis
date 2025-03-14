@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ScheduleLecture extends Model
+class ScheduleLecturer extends Model
 {
     protected $guarded = [
         'id'
@@ -12,7 +12,7 @@ class ScheduleLecture extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    protected $table = 'schedule_lectures';
+    protected $table = 'schedule_lecturers';
 
     public function schedule()
     {
@@ -21,6 +21,6 @@ class ScheduleLecture extends Model
 
     public function lecture()
     {
-        return $this->belongsTo(Lecture::class);
+        return $this->belongsTo(Lecturer::class);
     }
 }

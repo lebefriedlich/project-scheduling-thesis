@@ -26,6 +26,24 @@ class Schedule extends Model
 
     public function scheduleLectures()
     {
-        return $this->hasMany(ScheduleLecture::class);
+        return $this->hasMany(ScheduleLecturer::class);
+    }
+
+    public static function isScheduleConflict($location_id, $schedule_date, $start_time, $end_time, $exclude_id = null)
+    {
+        return self::where('location_id', $location_id)
+            ->where('schedule_date', $schedule_date)
+            ->where(function ($query) use ($start_time, $end_time) {
+                $query->whereBetween('start_time', [$start_time, $end_time])
+                      ->orWhereBetween('end_time', [$start_time, $end_time])
+                      ->orWhere(function ($query) use ($start_time, $end_time) {
+                          $query->where('start_time', '<=', $start_time)
+                                ->where('end_time', '>=', $end_time);
+                      });
+            })
+            ->when($exclude_id, function ($query) use ($exclude_id) {
+                $query->where('id', '!=', $exclude_id);
+            })
+            ->exists();
     }
 }

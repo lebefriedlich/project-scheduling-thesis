@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Lecture extends Model
+class Lecturer extends Model
 {
     protected $guarded = [
         'id'
@@ -12,7 +12,7 @@ class Lecture extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    protected $table = 'lectures';
+    protected $table = 'lecturers';
 
     public function sempros()
     {
@@ -26,6 +26,6 @@ class Lecture extends Model
 
     public function scheduleLectures()
     {
-        return $this->hasMany(ScheduleLecture::class);
+        return $this->hasMany(ScheduleLecturer::class);
     }
 }
