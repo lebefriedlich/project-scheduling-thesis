@@ -28,4 +28,9 @@ class Skripsi extends Model
     {
         return $this->morphMany(Schedule::class, 'exam');
     }
+
+    public function user()
+    {
+        return $this->semhas ? $this->semhas->user : null;
+    }
 }

@@ -33,4 +33,9 @@ class Semhas extends Model
     {
         return $this->morphMany(Schedule::class, 'exam');
     }
+
+    public function user()
+    {
+        return $this->sempro ? $this->sempro->user : null;
+    }
 }

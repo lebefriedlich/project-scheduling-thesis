@@ -29,7 +29,7 @@ class Schedule extends Model
         return $this->hasMany(ScheduleLecturer::class);
     }
 
-    public static function isScheduleConflict($location_id, $schedule_date, $start_time, $end_time, $exclude_id = null)
+    public static function isScheduleConflict($location_id, $schedule_date, $start_time, $end_time)
     {
         return self::where('location_id', $location_id)
             ->where('schedule_date', $schedule_date)
@@ -40,9 +40,6 @@ class Schedule extends Model
                           $query->where('start_time', '<=', $start_time)
                                 ->where('end_time', '>=', $end_time);
                       });
-            })
-            ->when($exclude_id, function ($query) use ($exclude_id) {
-                $query->where('id', '!=', $exclude_id);
             })
             ->exists();
     }
