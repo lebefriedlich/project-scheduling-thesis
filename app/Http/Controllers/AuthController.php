@@ -20,11 +20,11 @@ class AuthController extends Controller
         try {
             $googleUser = Socialite::driver('google')->user();
 
-            dd($googleUser);
-
             // Validasi email harus dari student.uin-malang.ac.id
-            if (!str_ends_with($googleUser->getEmail(), '@student.uin-malang.ac.id') || 
-                    $googleUser->getEmail() != 'teknikinformatika.uinmalang@gmail.com') {
+            if (
+                !str_ends_with($googleUser->getEmail(), '@student.uin-malang.ac.id') ||
+                $googleUser->getEmail() != 'teknikinformatika.uinmalang@gmail.com'
+            ) {
                 // Return error message
             }
 
@@ -67,19 +67,19 @@ class AuthController extends Controller
 
     public function updateProfile(Request $request)
     {
-        $user = User::find(auth()->user()->id);
+        $user = User::find(Auth::user()->id);
 
         if (!$user) {
             // Return error message
         }
-        
+
         $messages = [
             'required' => 'The :attribute field is required.',
             'numeric' => 'The :attribute field must be a number.',
         ];
 
         $validator = Validator::make($request->all(), [
-            'number_phone' => 'required|numeric',
+            'number_phone' => 'required|numeric|unique:users,number_phone,' . $user->id,
         ], $messages);
 
         if ($validator->fails()) {
@@ -88,6 +88,11 @@ class AuthController extends Controller
 
         $user->number_phone = $request->number_phone;
         $user->save();
+
+        Auth::setUser($user);
+        Auth::user()->refresh();
+        session()->regenerate();
+
 
         // Redirect user ke halaman edit profile
     }

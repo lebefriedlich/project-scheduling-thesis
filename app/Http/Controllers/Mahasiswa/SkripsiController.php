@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Mahasiswa;
 
 use App\Http\Controllers\Controller;
-use App\Models\Lecture;
+use App\Models\Lecturer;
 use App\Models\Periode;
 use App\Models\Skripsi;
 use Illuminate\Http\Request;
@@ -40,7 +40,7 @@ class SkripsiController extends Controller
             // return view not found semhas, can't submit semhas
         }
 
-        $lecture = Lecture::all();
+        $lecture = Lecturer::all();
 
         // return view with data, periode and lecture
     }

@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Lecture;
+use App\Models\Lecturer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class LectureController extends Controller
+class LecturerController extends Controller
 {
     public function index()
     {
-        $datas = Lecture::all();
+        $datas = Lecturer::all();
 
         dd($datas);
         // return the view with the data
@@ -29,7 +29,7 @@ class LectureController extends Controller
         ];
 
         $validation = Validator::make($request->all(), [
-            'nip' => 'required|numeric|digits:18|unique:lectures',
+            'nip' => 'required|numeric|digits:18|unique:lecturers',
             'name' => 'required|string|max:255',
         ], $messages);
 
@@ -37,16 +37,16 @@ class LectureController extends Controller
             // return the error message
         }
 
-        Lecture::create($request->all());
+        Lecturer::create($request->all());
 
         // return success message
     }
 
     public function show(string $id)
     {
-        $lecture = Lecture::find($id);
+        $lecturer = Lecturer::find($id);
 
-        if (!$lecture) {
+        if (!$lecturer) {
             // return error not found message
         }
 
@@ -55,9 +55,9 @@ class LectureController extends Controller
 
     public function update(Request $request, string $id)
     {
-        $lecture = Lecture::find($id);
+        $lecturer = Lecturer::find($id);
 
-        if (!$lecture) {
+        if (!$lecturer) {
             // return error not found message
         }
 
@@ -71,7 +71,7 @@ class LectureController extends Controller
         ];
 
         $validation = Validator::make($request->all(), [
-            'nip' => 'required|numeric|digits:18|unique:lectures,nip,' . $id,
+            'nip' => 'required|numeric|digits:18|unique:lecturers,nip,' . $id,
             'name' => 'required|string|max:255',
         ]);
 
@@ -79,20 +79,20 @@ class LectureController extends Controller
             // return the error message
         }
 
-        $lecture->update($request->all());
+        $lecturer->update($request->all());
 
         // return success message
     }
 
     public function destroy(string $id)
     {
-        $lecture = Lecture::find($id);
+        $lecturer = Lecturer::find($id);
 
-        if (!$lecture) {
+        if (!$lecturer) {
             // return error not found message
         }
 
-        $lecture->delete();
+        $lecturer->delete();
 
         // return success message
     }
