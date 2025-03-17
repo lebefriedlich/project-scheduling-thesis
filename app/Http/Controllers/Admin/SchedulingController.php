@@ -115,7 +115,6 @@ class SchedulingController extends Controller
 
         $user = $examModel ? $examModel->user : null;
 
-
         if ($user) {
             $examTypeMap = [
                 'Sempro' => 'Seminar Proposal',
@@ -138,6 +137,15 @@ class SchedulingController extends Controller
             ];
 
             Mail::to($user->email)->send(new ScheduleNotification($data, $subject));
+        }
+
+        $periode = \App\Models\Periode::where('type', strtolower($request->exam_type))
+            ->where('start_schedule', '<=', $request->schedule_date)
+            ->where('end_schedule', '>=', $request->schedule_date)
+            ->first();
+
+        if ($periode && $periode->quota > 0) {
+            $periode->decrement('quota');
         }
 
 
