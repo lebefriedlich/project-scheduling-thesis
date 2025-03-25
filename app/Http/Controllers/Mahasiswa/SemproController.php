@@ -20,8 +20,7 @@ class SemproController extends Controller
 
         // check periode
         $periode = Periode::where('type', 'sempro')
-            ->where('start_schedule', '<=', $now)
-            ->where('end_schedule', '>=', $now);
+            ->where('end_registration', '>=', $now);
 
         if (!$periode) {
             // return view not found periode, can't submit sempro

@@ -46,7 +46,6 @@ class SchedulingController extends Controller
             'required' => 'The :attribute field is required.',
             'exists' => 'The selected :attribute is invalid.',
             'in' => 'The selected :attribute is invalid.',
-            'date' => 'The :attribute is not a valid date.',
             'date_format' => 'The :attribute does not match the format H:i.',
             'after' => 'The :attribute must be a date after start time.'
         ];
@@ -55,7 +54,7 @@ class SchedulingController extends Controller
             'location_id' => 'required|exists:locations,id',
             'exam_id' => 'required|integer',
             'exam_type' => 'required|in:Sempro,Semhas,Skripsi',
-            'schedule_date' => 'required|date',
+            'schedule_date' => 'required|date_format:d F Y',
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i|after:start_time',
             'lecturer_id' => 'required|array',
@@ -74,81 +73,92 @@ class SchedulingController extends Controller
             // return back()->withErrors(['schedule' => 'Jadwal bentrok dengan jadwal lain di lokasi yang sama untuk ' . class_basename($request->exam_type) . '!']);
         }
 
-        $modelMap = [
-            'Sempro' => \App\Models\Sempro::class,
-            'Semhas' => \App\Models\Semhas::class,
-            'Skripsi' => \App\Models\Skripsi::class,
-        ];
-
-        $schedule = Schedule::create([
-            'exam_id' => $request->exam_id,
-            'exam_type' => $modelMap[$request->exam_type],
-            'location_id' => $request->location_id,
-            'schedule_date' => $request->schedule_date,
-            'start_time' => $request->start_time,
-            'end_time' => $request->end_time,
-        ]);
-
-        $lecturers = Lecturer::whereIn('id', $request->lecturer_id)->pluck('name', 'id');
-
-        $masterLecturer = $examiner1Lecturer = $examiner2Lecturer = $examiner3Lecturer = null;
-
-        foreach ($request->lecturer_id as $key => $lecturerId) {
-            $scheduleLecturer = ScheduleLecturer::create([
-                'schedule_id' => $schedule->id,
-                'lecturer_id' => $lecturerId,
-                'role' => $request->role[$key],
-                'description' => $request->description[$key] ?? null,
-            ]);
-
-            $lecturerName = $lecturers[$lecturerId] ?? null;
-
-            match ($scheduleLecturer->role) {
-                'Master' => $masterLecturer = $lecturerName,
-                'Examiner 1' => $examiner1Lecturer = $lecturerName,
-                'Examiner 2' => $examiner2Lecturer = $lecturerName,
-                'Examiner 3' => $examiner3Lecturer = $lecturerName,
-            };
-        }
-
-        $examModel = $modelMap[$request->exam_type]::find($request->exam_id);
-
-        $user = $examModel ? $examModel->user : null;
-
-        if ($user) {
-            $examTypeMap = [
-                'Sempro' => 'Seminar Proposal',
-                'Semhas' => 'Seminar Hasil',
-                'Skripsi' => 'Sidang Skripsi',
+        DB::beginTransaction();
+        try {
+            $modelMap = [
+                'Sempro' => \App\Models\Sempro::class,
+                'Semhas' => \App\Models\Semhas::class,
+                'Skripsi' => \App\Models\Skripsi::class,
             ];
 
-            $subject = "[INFO] Jadwal " . $examTypeMap[$request->exam_type] . " - " . $user->name;
-            $data = [
-                'user_name' => $user->name,
-                'exam_type' => $examTypeMap[$request->exam_type],
-                'schedule_date' => Carbon::createFromFormat('d F Y', $request->schedule_date)->format('Y-m-d'),
+            $periode = \App\Models\Periode::where('type', strtolower($request->exam_type))
+                ->where('start_schedule', '<=', $request->schedule_date)
+                ->where('end_schedule', '>=', $request->schedule_date)
+                ->first();
+
+            if (!$periode) {
+                // return back()->withErrors(['error' => 'Tanggal yang anda masukkan tidak sesuai dengan periode ' . $request->exam_type . '!']);
+            }
+
+            $schedule = Schedule::create([
+                'exam_id' => $request->exam_id,
+                'exam_type' => $modelMap[$request->exam_type],
+                'location_id' => $request->location_id,
+                'schedule_date' => $request->schedule_date,
                 'start_time' => $request->start_time,
                 'end_time' => $request->end_time,
-                'location' => $schedule->location->name,
-                'master_lecturer' => $masterLecturer,
-                'examiner_1_lecturer' => $examiner1Lecturer,
-                'examiner_2_lecturer' => $examiner2Lecturer,
-                'examiner_3_lecturer' => $examiner3Lecturer,
-            ];
+            ]);
 
-            Mail::to($user->email)->send(new ScheduleNotification($data, $subject));
+            $lecturers = Lecturer::whereIn('id', $request->lecturer_id)->pluck('name', 'id');
+
+            $masterLecturer = $examiner1Lecturer = $examiner2Lecturer = $examiner3Lecturer = null;
+
+            foreach ($request->lecturer_id as $key => $lecturerId) {
+                $scheduleLecturer = ScheduleLecturer::create([
+                    'schedule_id' => $schedule->id,
+                    'lecturer_id' => $lecturerId,
+                    'role' => $request->role[$key],
+                    'description' => $request->description[$key] ?? null,
+                ]);
+
+                $lecturerName = $lecturers[$lecturerId] ?? null;
+
+                match ($scheduleLecturer->role) {
+                    'Master' => $masterLecturer = $lecturerName,
+                    'Examiner 1' => $examiner1Lecturer = $lecturerName,
+                    'Examiner 2' => $examiner2Lecturer = $lecturerName,
+                    'Examiner 3' => $examiner3Lecturer = $lecturerName,
+                };
+            }
+
+            $examModel = $modelMap[$request->exam_type]::find($request->exam_id);
+
+            $user = $examModel ? $examModel->user : null;
+
+            if ($user) {
+                $examTypeMap = [
+                    'Sempro' => 'Seminar Proposal',
+                    'Semhas' => 'Seminar Hasil',
+                    'Skripsi' => 'Sidang Skripsi',
+                ];
+
+                $subject = "[INFO] Jadwal " . $examTypeMap[$request->exam_type] . " - " . $user->name;
+                $data = [
+                    'user_name' => $user->name,
+                    'exam_type' => $examTypeMap[$request->exam_type],
+                    'schedule_date' => $request->schedule_date,
+                    'start_time' => $request->start_time,
+                    'end_time' => $request->end_time,
+                    'location' => $schedule->location->name,
+                    'master_lecturer' => $masterLecturer,
+                    'examiner_1_lecturer' => $examiner1Lecturer,
+                    'examiner_2_lecturer' => $examiner2Lecturer,
+                    'examiner_3_lecturer' => $examiner3Lecturer,
+                ];
+
+                Mail::to($user->email)->send(new ScheduleNotification($data, $subject));
+            }
+
+            if ($periode && $periode->quota > 0) {
+                $periode->decrement('quota');
+            }
+
+            DB::commit();
+
+            // return success response
+        } catch (\Exception $e) {
+            DB::rollBack();
+            // return back()->withErrors(['error' => 'Terjadi kesalahan saat menyimpan data jadwal!']);
         }
-
-        $periode = \App\Models\Periode::where('type', strtolower($request->exam_type))
-            ->where('start_schedule', '<=', $request->schedule_date)
-            ->where('end_schedule', '>=', $request->schedule_date)
-            ->first();
-
-        if ($periode && $periode->quota > 0) {
-            $periode->decrement('quota');
-        }
-
-
-        // return success response
     }
 }

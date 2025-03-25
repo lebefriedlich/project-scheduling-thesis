@@ -22,8 +22,7 @@ class SkripsiController extends Controller
 
         // check periode
         $periode = Periode::where('type', 'semhas')
-            ->where('start_schedule', '<=', $now)
-            ->where('end_schedule', '>=', $now);
+            ->where('end_registration', '>=', $now);
 
         if (!$periode) {
             // return view not found periode, can't submit sempro
