@@ -36,7 +36,6 @@ class Index extends Component
 
         $this->reset('fileExcel');
         $this->dispatch('closeModal');
-        $this->emit('tableUpdated');
     }
 
 
