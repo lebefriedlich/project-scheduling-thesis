@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignUuid('user_id')->constrained('users')->cascadeOnDelete();
             $table->foreignId('periode_id')->constrained('periodes')->cascadeOnDelete();
-            $table->foreignId('mentor_id')->constrained('lectures')->cascadeOnDelete();
-            $table->foreignId('second_mentor_id')->constrained('lectures')->cascadeOnDelete();
+            $table->foreignId('mentor_id')->constrained('lecturers')->cascadeOnDelete();
+            $table->foreignId('second_mentor_id')->constrained('lecturers')->cascadeOnDelete();
             $table->string('doc_pra_proposal');
             $table->boolean('is_submit');
             $table->timestamps();
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sempros');
+        Schema::dropIfExists('sempro');
     }
 };

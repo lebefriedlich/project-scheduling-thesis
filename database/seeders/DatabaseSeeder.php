@@ -27,39 +27,6 @@ class DatabaseSeeder extends Seeder
             'is_admin' => true,
         ]);
 
-        $faker = Faker::create();
-
-        $datas_lecturer = [
-            [
-                'nip' => '123456789012345678',
-                'name' => $faker->name(),
-            ],
-            [
-                'nip' => '123456789012345679',
-                'name' => $faker->name(),
-            ],
-            [
-                'nip' => '123456789012345680',
-                'name' => $faker->name(),
-            ],
-            [
-                'nip' => '123456789012345681',
-                'name' => $faker->name(),
-            ],
-            [
-                'nip' => '123456789012345682',
-                'name' => $faker->name(),
-            ],
-            [
-                'nip' => '123456789012345683',
-                'name' => $faker->name(),
-            ]
-        ];
-
-        foreach ($datas_lecturer as $data) {
-            Lecturer::create($data);
-        }
-
         $datas_periode = [
             [
                 'name' => 'Seminar Proposal 1',
