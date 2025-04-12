@@ -28,3 +28,19 @@ Route::prefix('admin')->group(function () {
     Route::get('/lecturer/store', App\Livewire\Admin\Lecturer\Store::class)->name('admin.lecturer.store');
     Route::get('/lecturer/edit/{id}', App\Livewire\Admin\Lecturer\Edit::class)->name('admin.lecturer.edit');
 });
+
+// Route user
+Route::prefix('user')->group(function () {
+    Route::get('/periode', function () {
+        return view('pages/periode', ['title' => 'Periode']);
+    });
+    Route::get('/sempro', function () {
+        return view('pages/sempro', ['title' => 'Sempro']);
+    });
+    Route::get('/semhas', function () {
+        return view('pages/semhas', ['title' => 'Semhas']);
+    });
+    Route::get('/skripsi', function () {
+        return view('pages/skripsi', ['title' => 'Skripsi']);
+    });
+});
