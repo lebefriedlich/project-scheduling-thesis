@@ -7,7 +7,7 @@
                         <div class="box-body">
                             <div
                                 style="width: 100%; height: 600px; border: 1px solid #ccc; border-radius: 10px; overflow: hidden;">
-                                <iframe src="{{ $datas->doc_pra_proposal }}"
+                                <iframe src="{{ $datas->kompre }}"
                                     style="width: 100%; height: 100%; border: none;" allowfullscreen></iframe>
                             </div>
                             <div class="gr-btn mt-15">
@@ -16,7 +16,7 @@
                                     class="btn btn-warning btn-lg mr-15 fs-16">
                                     Tolak
                                 </button>
-                                <a href="{{ route('admin.acc-schedule.index', ['exam_id' => $datas->id, 'exam_type' => 'Sempro']) }}"
+                                <a href="{{ route('admin.acc-schedule.index', ['exam_id' => $datas->id, 'exam_type' => 'Semhas']) }}"
                                     class="btn btn-primary btn-lg mr-15 fs-16">Atur Jadwal</a>
                                 <div wire:loading>
                                     <x-loading />

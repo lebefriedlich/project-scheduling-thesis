@@ -29,18 +29,37 @@ class Schedule extends Model
         return $this->hasMany(ScheduleLecturer::class);
     }
 
-    public static function isScheduleConflict($location_id, $schedule_date, $start_time, $end_time)
+    public static function isLocationConflict($location_id, $schedule_date, $start_time, $end_time)
     {
         return self::where('location_id', $location_id)
             ->where('schedule_date', $schedule_date)
             ->where(function ($query) use ($start_time, $end_time) {
                 $query->whereBetween('start_time', [$start_time, $end_time])
-                      ->orWhereBetween('end_time', [$start_time, $end_time])
-                      ->orWhere(function ($query) use ($start_time, $end_time) {
-                          $query->where('start_time', '<=', $start_time)
-                                ->where('end_time', '>=', $end_time);
-                      });
+                    ->orWhereBetween('end_time', [$start_time, $end_time])
+                    ->orWhere(function ($query) use ($start_time, $end_time) {
+                        $query->where('start_time', '<=', $start_time)
+                            ->where('end_time', '>=', $end_time);
+                    });
             })
             ->exists();
+    }
+
+    public static function isLecturerConflict($lecturer_ids, $schedule_date, $start_time, $end_time)
+    {
+        if (!empty($lecturer_ids)) {
+            return \App\Models\TeachingSchedule::whereIn('lecturer_id', $lecturer_ids)
+                ->where('schedule_date', $schedule_date)
+                ->where(function ($query) use ($start_time, $end_time) {
+                    $query->whereBetween('start_time', [$start_time, $end_time])
+                        ->orWhereBetween('end_time', [$start_time, $end_time])
+                        ->orWhere(function ($query) use ($start_time, $end_time) {
+                            $query->where('start_time', '<=', $start_time)
+                                ->where('end_time', '>=', $end_time);
+                        });
+                })
+                ->exists();
+        }
+
+        return false; // Jika tidak ada dosen, tidak ada konflik
     }
 }

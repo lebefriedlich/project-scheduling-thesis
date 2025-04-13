@@ -16,6 +16,9 @@ Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallbac
 Route::prefix('admin')->group(function () {
     Route::get('/', App\Livewire\Admin\Index::class)->name('admin.index');
     Route::get('/show-document-sempro/{id}', App\Livewire\Admin\ShowDocument\Sempro::class)->name('admin.show-document.sempro');
+    Route::get('/show-document-semhas/{id}', App\Livewire\Admin\ShowDocument\Semhas::class)->name('admin.show-document.semhas');
+
+    Route::get('/acc-schedule/{exam_id}/{exam_type}', App\Livewire\Admin\AccSchedule\Index::class)->name('admin.acc-schedule.index');
 
     Route::get('/periode', App\Livewire\Admin\Periode\Index::class)->name('admin.periode.index');
     Route::get('/periode/store', App\Livewire\Admin\Periode\Store::class)->name('admin.periode.store');

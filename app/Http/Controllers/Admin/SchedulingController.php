@@ -115,7 +115,6 @@ class SchedulingController extends Controller
 
         $user = $examModel ? $examModel->user : null;
 
-
         if ($user) {
             $examTypeMap = [
                 'Sempro' => 'Seminar Proposal',

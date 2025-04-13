@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Lecturer;
+use App\Models\Location;
 use App\Models\Periode;
 use App\Models\Sempro;
 use App\Models\User;
@@ -127,13 +128,14 @@ class DatabaseSeeder extends Seeder
             Periode::create($data);
         }
 
-        Sempro::create([
-            'user_id' => 'f2b8c0a2-4d1e-4f3b-9f5c-6a7d8e5f3b2d',
-            'periode_id' => '1',
-            'mentor_id' => 1,
-            'second_mentor_id' => 2,
-            'doc_pra_proposal' => 'http://localhost:8000/storage/sempro/sempro_220605110149.pdf',
-            'is_submit' => true,
+        Location::create([
+            'name' => 'Ruang Sidang',
+            'description' => 'Ruang Sidang',
+        ]);
+
+        Location::create([
+            'name' => 'Ruang Baca',
+            'description' => 'Ruang Baca',
         ]);
     }
 }

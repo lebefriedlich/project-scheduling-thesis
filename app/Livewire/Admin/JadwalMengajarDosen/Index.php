@@ -34,8 +34,8 @@ class Index extends Component
             ]);
         }
 
-        $this->reset('fileExcel');
-        $this->dispatch('closeModal');
+        session()->flash('message', 'Data berhasil diimport');
+        return redirect()->route('admin.jadwal-mengajar-dosen.index');
     }
 
 

@@ -107,10 +107,10 @@
                                                 <td class="text-center">{{ $data->sempro->mentor->name }}</td>
                                                 <td class="text-center">{{ $data->sempro->secondMentor->name }}</td>
                                                 <td class="text-center">
-                                                    {{-- <a href="{{ route('admin.show-document.semhas', $data->id) }}"
-                                                        class="btn btn-sm btn-warning">
-                                                        <i class="bx bx-edit-alt me-1"></i> Edit
-                                                    </a> --}}
+                                                    <a href="{{ route('admin.show-document.semhas', $data->id) }}"
+                                                        class="btn btn-sm btn-primary">
+                                                        <i class="bx bx-show me-1"></i> Lihat
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
