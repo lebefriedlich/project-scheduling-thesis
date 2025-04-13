@@ -24,8 +24,13 @@ class Lecturer extends Model
         return $this->hasMany(Sempro::class, 'second_mentor_id');
     }
 
-    public function scheduleLectures()
+    public function scheduleLecturers()
     {
         return $this->hasMany(ScheduleLecturer::class);
+    }
+
+    public function teachingSchedules()
+    {
+        return $this->hasMany(TeachingSchedule::class);
     }
 }

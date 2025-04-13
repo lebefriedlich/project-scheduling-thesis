@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Lecture;
+use App\Models\Lecturer;
 use App\Models\Periode;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -27,111 +27,87 @@ class DatabaseSeeder extends Seeder
             'is_admin' => true,
         ]);
 
-        $faker = Faker::create();
-
-        $datas_lecturer = [
-            [
-                'nip' => '123456789012345678',
-                'name' => $faker->name(),
-            ],
-            [
-                'nip' => '123456789012345679',
-                'name' => $faker->name(),
-            ],
-            [
-                'nip' => '123456789012345680',
-                'name' => $faker->name(),
-            ],
-            [
-                'nip' => '123456789012345681',
-                'name' => $faker->name(),
-            ],
-            [
-                'nip' => '123456789012345682',
-                'name' => $faker->name(),
-            ],
-            [
-                'nip' => '123456789012345683',
-                'name' => $faker->name(),
-            ]
-        ];
-
-        foreach ($datas_lecturer as $data) {
-            Lecture::create($data);
-        }
-
         $datas_periode = [
             [
                 'name' => 'Seminar Proposal 1',
                 'description' => 'Seminar Proposal 1',
                 'type' => 'sempro',
-                'start_schedule' => '2025-02-01',
-                'end_schedule' => '2025-03-31',
-                'quota' => 20,
+                'end_registration' => '2025-02-07',
+                'start_schedule' => '2025-02-17',
+                'end_schedule' => '2025-03-21',
+                'quota' => 40,
             ],
             [
                 'name' => 'Seminar Proposal 2',
                 'description' => 'Seminar Proposal 2',
                 'type' => 'sempro',
-                'start_schedule' => '2025-04-01',
-                'end_schedule' => '2025-05-31',
-                'quota' => 20,
+                'end_registration' => '2025-03-21',
+                'start_schedule' => '2025-04-14',
+                'end_schedule' => '2025-04-25',
+                'quota' => 40,
             ],
             [
                 'name' => 'Seminar Proposal 3',
                 'description' => 'Seminar Proposal 3',
                 'type' => 'sempro',
-                'start_schedule' => '2025-06-01',
-                'end_schedule' => '2025-07-31',
+                'end_registration' => '2025-05-09',
+                'start_schedule' => '2025-05-14',
+                'end_schedule' => '2025-05-20',
                 'quota' => 20,
             ],
             [
                 'name' => 'Seminar Hasil 1',
                 'description' => 'Seminar Hasil 1',
                 'type' => 'semhas',
-                'start_schedule' => '2025-02-01',
-                'end_schedule' => '2025-03-31',
+                'end_registration' => '2025-02-25',
+                'start_schedule' => '2025-03-03',
+                'end_schedule' => '2025-03-07',
                 'quota' => 20,
             ],
             [
                 'name' => 'Seminar Hasil 2',
                 'description' => 'Seminar Hasil 2',
                 'type' => 'semhas',
-                'start_schedule' => '2025-04-01',
-                'end_schedule' => '2025-05-31',
-                'quota' => 20,
+                'end_registration' => '2025-04-15',
+                'start_schedule' => '2025-04-21',
+                'end_schedule' => '2025-04-25',
+                'quota' => 40,
             ],
             [
                 'name' => 'Seminar Hasil 3',
                 'description' => 'Seminar Hasil 3',
                 'type' => 'semhas',
-                'start_schedule' => '2025-06-01',
-                'end_schedule' => '2025-07-31',
-                'quota' => 20,
+                'end_registration' => '2025-05-16',
+                'start_schedule' => '2025-05-21',
+                'end_schedule' => '2025-05-28',
+                'quota' => 40,
             ],
             [
                 'name' => 'Sidang Skripsi 1',
                 'description' => 'Sidang Skripsi 1',
                 'type' => 'skripsi',
-                'start_schedule' => '2025-02-01',
-                'end_schedule' => '2025-03-31',
+                'end_registration' => '2025-04-17',
+                'start_schedule' => '2025-04-28',
+                'end_schedule' => '2025-04-30',
                 'quota' => 20,
             ],
             [
                 'name' => 'Sidang Skripsi 2',
                 'description' => 'Sidang Skripsi 2',
                 'type' => 'skripsi',
-                'start_schedule' => '2025-04-01',
-                'end_schedule' => '2025-05-31',
-                'quota' => 20,
+                'end_registration' => '2025-05-02',
+                'start_schedule' => '2025-05-05',
+                'end_schedule' => '2025-05-09',
+                'quota' => 40,
             ],
             [
                 'name' => 'Sidang Skripsi 3',
                 'description' => 'Sidang Skripsi 3',
                 'type' => 'skripsi',
-                'start_schedule' => '2025-06-01',
-                'end_schedule' => '2025-07-31',
-                'quota' => 20,
+                'end_registration' => '2025-06-05',
+                'start_schedule' => '2025-06-11',
+                'end_schedule' => '2025-06-20',
+                'quota' => 40,
             ],
         ];
 

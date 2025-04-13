@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->enum('type', ['sempro', 'semhas', 'skripsi']);
+            $table->date('end_registration');
             $table->date('start_schedule');
             $table->date('end_schedule');
             $table->bigInteger('quota');

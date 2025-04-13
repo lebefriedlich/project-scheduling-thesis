@@ -70,7 +70,7 @@ class SchedulingController extends Controller
             // return validation error
         }
 
-        if (Schedule::isScheduleConflict($request->location_id, $request->schedule_date, $request->start_time, $request->end_time, $request->exam_type)) {
+        if (Schedule::isScheduleConflict($request->location_id, $request->schedule_date, $request->start_time, $request->end_time)) {
             // return back()->withErrors(['schedule' => 'Jadwal bentrok dengan jadwal lain di lokasi yang sama untuk ' . class_basename($request->exam_type) . '!']);
         }
 

@@ -24,7 +24,7 @@ class Schedule extends Model
         return $this->belongsTo(Location::class);
     }
 
-    public function scheduleLectures()
+    public function scheduleLecturers()
     {
         return $this->hasMany(ScheduleLecturer::class);
     }

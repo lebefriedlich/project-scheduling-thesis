@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('lecturers', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('nip')->unique();
+            $table->bigInteger('nip')->unique()->nullable();
             $table->string('name');
             $table->timestamps();
         });
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lectures');
+        Schema::dropIfExists('lecturers');
     }
 };

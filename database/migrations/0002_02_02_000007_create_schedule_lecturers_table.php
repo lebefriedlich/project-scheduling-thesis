@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('schedule_lecturers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('schedule_id')->constrained('schedules')->cascadeOnDelete();
-            $table->foreignId('lecturer_id')->constrained('lectures')->cascadeOnDelete();
+            $table->foreignId('lecturer_id')->constrained('lecturers')->cascadeOnDelete();
             $table->enum('role', ['Master', 'Examiner 1', 'Examiner 2', 'Examiner 3']);
             $table->text('description')->nullable();
             $table->timestamps();
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('schedule_lectures');
+        Schema::dropIfExists('schedule_lecturers');
     }
 };

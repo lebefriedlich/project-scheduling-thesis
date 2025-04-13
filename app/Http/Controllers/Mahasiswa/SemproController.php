@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Mahasiswa;
 
 use App\Http\Controllers\Controller;
-use App\Models\Lecture;
+use App\Models\Lecturer;
 use App\Models\Periode;
 use App\Models\Sempro;
 use Carbon\Carbon;
@@ -20,8 +20,7 @@ class SemproController extends Controller
 
         // check periode
         $periode = Periode::where('type', 'sempro')
-            ->where('start_schedule', '<=', $now)
-            ->where('end_schedule', '>=', $now);
+            ->where('end_registration', '>=', $now);
 
         if (!$periode) {
             // return view not found periode, can't submit sempro
@@ -29,9 +28,9 @@ class SemproController extends Controller
 
         $data_sempro = Sempro::where('user_id', Auth::user()->id)->get();
 
-        $lecture = Lecture::all();
+        $lecturer = Lecturer::all();
 
-        // return view with data_sempro, periode and lecture
+        // return view with data_sempro, periode and lecturer
     }
 
     public function store(Request $request) {
@@ -47,8 +46,8 @@ class SemproController extends Controller
         $validator = Validator::make($request->all(), [
             'user_id' => 'required|exists:users,id',
             'periode_id' => 'required|exists:periodes,id',
-            'mentor_id' => 'required|exists:lectures,id',
-            'second_mentor_id' => 'required|exists:lectures,id',
+            'mentor_id' => 'required|exists:lecturers,id',
+            'second_mentor_id' => 'required|exists:lecturers,id',
             'doc_pra_proposal' => 'required|file|mimes:pdf|max:2048',
             'is_submit' => 'required|boolean',
         ], $messages);
@@ -102,8 +101,8 @@ class SemproController extends Controller
         $validator = Validator::make($request->all(), [
             'user_id' => 'required|exists:users,id',
             'periode_id' => 'required|exists:periodes,id',
-            'mentor_id' => 'required|exists:lectures,id',
-            'second_mentor_id' => 'required|exists:lectures,id',
+            'mentor_id' => 'required|exists:lecturers,id',
+            'second_mentor_id' => 'required|exists:lecturers,id',
             'doc_pra_proposal' => 'required|file|mimes:pdf|max:2048',
             'is_submit' => 'required|boolean',
         ], $messages);
