@@ -18,7 +18,7 @@ class AuthController extends Controller
     public function handleGoogleCallback()
     {
         try {
-            $googleUser = Socialite::driver('google')->user();
+            $googleUser = Socialite::driver('google')->stateless()->user();
 
             // Validasi email harus dari student.uin-malang.ac.id
             if (
@@ -27,6 +27,8 @@ class AuthController extends Controller
             ) {
                 // Return error message
             }
+
+            dd($googleUser);
 
             $emailParts = explode('@', $googleUser->getEmail());
             $nim = $emailParts[0];

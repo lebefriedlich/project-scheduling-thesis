@@ -14,6 +14,12 @@
     <div class="simlebar-sc" data-simplebar>
         <ul class="sidebar-menu tf">
             <li>
+                <a wire:navigate href="{{ route('admin.index') }}">
+                    <i class="bx bxs-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
                 <a wire:navigate href="{{ route('admin.periode.index') }}">
                     <i class="bx bxs-timer"></i>
                     <span>List Periode</span>

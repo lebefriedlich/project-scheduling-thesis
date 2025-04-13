@@ -4,10 +4,12 @@ namespace Database\Seeders;
 
 use App\Models\Lecturer;
 use App\Models\Periode;
+use App\Models\Sempro;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,6 +27,16 @@ class DatabaseSeeder extends Seeder
             'email' => 'teknikinformatika.uinmalang@gmail.com',
             'number_phone' => null,
             'is_admin' => true,
+        ]);
+
+        DB::table('users')->insert([
+            'id' => 'f2b8c0a2-4d1e-4f3b-9f5c-6a7d8e5f3b2d',
+            'google_id' => '106985701357580562082',
+            'nim' => '220605110149',
+            'name' => 'Maulana Haekal Noval Akbar',
+            'email' => '220605110149@student.uin-malang.ac.id',
+            'number_phone' => null,
+            'is_admin' => false,
         ]);
 
         $datas_periode = [
@@ -114,5 +126,14 @@ class DatabaseSeeder extends Seeder
         foreach ($datas_periode as $data) {
             Periode::create($data);
         }
+
+        Sempro::create([
+            'user_id' => 'f2b8c0a2-4d1e-4f3b-9f5c-6a7d8e5f3b2d',
+            'periode_id' => '1',
+            'mentor_id' => 1,
+            'second_mentor_id' => 2,
+            'doc_pra_proposal' => 'http://localhost:8000/storage/sempro/sempro_220605110149.pdf',
+            'is_submit' => true,
+        ]);
     }
 }

@@ -14,6 +14,9 @@ Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('a
 Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
 
 Route::prefix('admin')->group(function () {
+    Route::get('/', App\Livewire\Admin\Index::class)->name('admin.index');
+    Route::get('/show-document-sempro/{id}', App\Livewire\Admin\ShowDocument\Sempro::class)->name('admin.show-document.sempro');
+
     Route::get('/periode', App\Livewire\Admin\Periode\Index::class)->name('admin.periode.index');
     Route::get('/periode/store', App\Livewire\Admin\Periode\Store::class)->name('admin.periode.store');
     Route::get('/periode/edit/{id}', App\Livewire\Admin\Periode\Edit::class)->name('admin.periode.edit');

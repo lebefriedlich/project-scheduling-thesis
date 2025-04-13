@@ -2,12 +2,31 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\Semhas;
+use App\Models\Sempro;
+use App\Models\Skripsi;
 use Livewire\Component;
 
 class Index extends Component
 {
     public function render()
     {
-        return view('livewire.admin.index');
+        $sempro =  Sempro::with(['user', 'periode', 'mentor', 'secondMentor'])->where('is_submit', true)->get();
+        $semhas = Semhas::with(['sempro.user', 'sempro.mentor', 'sempro.secondMentor', 'periode'])->where('is_submit', true)->get();
+        $skripsi = Skripsi::with([
+            'semhas.sempro.user',
+            'semhas.sempro.mentor',
+            'semhas.sempro.secondMentor',
+            'periode'
+        ])->where('is_submit', true)->get();
+
+
+        return view('livewire.admin.index', [
+            'sempro' => $sempro,
+            'semhas' => $semhas,
+            'skripsi' => $skripsi,
+        ])->layout('layouts.app', [
+            'subTitle' => 'Dashboard',
+        ])->title('Admin - Dashboard');
     }
 }
