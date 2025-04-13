@@ -29,6 +29,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/lecturer/edit/{id}', App\Livewire\Admin\Lecturer\Edit::class)->name('admin.lecturer.edit');
 });
 
+Route::get('/auth', function () {
+    return view('pages.auth', ['title' => 'Auth']);
+})->name('login');
+
+Route::get('/user', function () {
+    return redirect('/user/periode');
+})->name('user');
+
 // Route user
 Route::prefix('user')->group(function () {
     Route::get('/periode', function () {

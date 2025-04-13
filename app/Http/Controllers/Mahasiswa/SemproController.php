@@ -23,7 +23,7 @@ class SemproController extends Controller
             ->where('end_registration', '>=', $now);
 
         if (!$periode) {
-            // return view not found periode, can't submit sempro
+            // return view not found periode, can't submit sempro   
         }
 
         $data_sempro = Sempro::where('user_id', Auth::user()->id)->get();
