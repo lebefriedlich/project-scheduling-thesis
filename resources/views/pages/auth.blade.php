@@ -13,7 +13,7 @@
                                     <p class="mb-0">Please log in using your UIN Malang account</p>
                                 </div>
                                 <div class="card-body">
-                                    <a href="{{ route('auth.google') }}" class="btn btn-primary text-gradient font-weight-bold">
+                                    <a href="{{ route('auth.google') }}" class="btn btn-primary text-dark text-gradient font-weight-bold">
                                         <svg width="24px" height="32px" viewBox="0 0 64 64" version="1.1">
                                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                                                 <g transform="translate(3.000000, 2.000000)" fill-rule="nonzero">

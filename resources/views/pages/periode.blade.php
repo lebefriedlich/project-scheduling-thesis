@@ -18,11 +18,9 @@
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Mentor</label>
                         <select class="form-control" id="exampleFormControlSelect1">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
+                            @foreach ($lecturer as $item)
+                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
