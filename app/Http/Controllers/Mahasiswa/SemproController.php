@@ -33,14 +33,6 @@ class SemproController extends Controller
 
         $sempro = Sempro::where('user_id', Auth::user()->id)->first();
 
-        $schedule = Schedule::where('exam_type', 'sempro')->where('exam_id', $sempro->id)->first();
-
-        $isActiveForm = false;
-
-        if ($schedule->end_time ?? null >= $now) {
-            $isActiveForm = true;
-        }
-
         $lecturer = Lecturer::all();
 
         $title = 'Sempro';
@@ -48,7 +40,7 @@ class SemproController extends Controller
         // dd($lecturer);
 
         // return view with data_sempro, periode and lecturer
-        return view('pages.sempro', compact('sempro', 'periode', 'lecturer', 'title', 'schedule', 'isActiveForm'));
+        return view('pages.sempro', compact('sempro', 'periode', 'lecturer', 'title'));
     }
 
     public function store(Request $request)

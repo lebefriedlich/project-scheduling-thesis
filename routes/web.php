@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use Illuminate\Routing\Controllers\Middleware;
 use App\Http\Controllers\Mahasiswa\SemhasController;
 use App\Http\Controllers\Mahasiswa\SemproController;
 
@@ -35,20 +36,21 @@ Route::get('/auth', function () {
     return view('pages.auth', ['title' => 'Auth']);
 })->name('login');
 
-Route::get('/user', function () {
-    return redirect('/user/sempro');
-})->name('user');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user', function () {
+        return redirect('/user/sempro');
+    })->name('user');
 
-// Route user
-Route::prefix('user')->group(function () {
-    // Route::get('/periode', [SemproController::class, 'index'])->name('user.periode.index');
-    Route::get('/sempro', [SemproController::class, 'index'])->name('user.sempro.index');
-    Route::post('/sempro', [SemproController::class, 'store'])->name('user.sempro.store');
+    // Route user
+    Route::prefix('user')->group(function () {
+        Route::get('/sempro', [SemproController::class, 'index'])->name('user.sempro.index');
+        Route::post('/sempro', [SemproController::class, 'store'])->name('user.sempro.store');
 
-    Route::get('/semhas', [SemhasController::class, 'index'])->name('user.semhas.index');
-    Route::post('/semhas', [SemhasController::class, 'store'])->name('user.semhas.store');
-    
-    Route::get('/skripsi', function () {
-        return view('pages/skripsi', ['title' => 'Skripsi']);
+        Route::get('/semhas', [SemhasController::class, 'index'])->name('user.semhas.index');
+        Route::post('/semhas', [SemhasController::class, 'store'])->name('user.semhas.store');
+
+        Route::get('/skripsi', function () {
+            return view('pages.skripsi', ['title' => 'Skripsi']);
+        })->name('user.skripsi');
     });
 });
