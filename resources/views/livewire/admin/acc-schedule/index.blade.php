@@ -23,10 +23,11 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6 col-sm-12">
-                                    <div class="form-group">
+                                    <div class="form-group schedule-date">
                                         <label class="form-label">Tanggal Pelaksanaan</label>
-                                        <input type="date" wire:model="schedule_date" min="{{ $startScheduleDate }}"
-                                        max="{{ $endScheduleDate }}" class="form-control">
+                                        <input type="text" id="schedule_date" wire:model="schedule_date"
+                                            min="{{ $startScheduleDate }}" max="{{ $endScheduleDate }}"
+                                            class="form-control">
                                         @error('schedule_date')
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
@@ -82,7 +83,8 @@
                                     {{-- Penguji 2 (Pembimbing 1) --}}
                                     <div class="col-md-4 mb-24">
                                         <label class="form-label">Penguji 2 (Pembimbing 1)</label>
-                                        <select wire:model.live.debounce.300ms="examiner_2" class="form-control" disabled>
+                                        <select wire:model.live.debounce.300ms="examiner_2" class="form-control"
+                                            disabled>
                                             <option value="">Pilih Dosen</option>
                                             @foreach ($this->getFilteredLecturers([$examiner_chairman, $examiner_1]) as $lecturer)
                                                 <option value="{{ $lecturer['id'] }}">{{ $lecturer['name'] }}</option>
@@ -162,4 +164,28 @@
             </div>
         </div>
     </div>
+
+    @push('styles')
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    @endpush
+
+    @push('scripts')
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                flatpickr("#schedule_date", {
+                    dateFormat: "Y-m-d",
+                    minDate: "{{ $startScheduleDate }}",
+                    maxDate: "{{ $endScheduleDate }}",
+                    disable: [
+                        function(date) {
+                            return (date.getDay() === 0 || date.getDay() === 6);
+                        }
+                    ],
+                    position: "auto center",
+                    appendTo: document.body.querySelector('.main-content'),
+                });
+            });
+        </script>
+    @endpush
 </div>

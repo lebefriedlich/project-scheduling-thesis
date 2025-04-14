@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Schedule extends Model
@@ -47,8 +48,11 @@ class Schedule extends Model
     public static function isLecturerConflict($lecturer_ids, $schedule_date, $start_time, $end_time)
     {
         if (!empty($lecturer_ids)) {
+            // Ubah schedule_date ke nama hari dalam bahasa Indonesia
+            $day = Carbon::parse($schedule_date)->translatedFormat('l'); // Misal: 'Wednesday'
+
             return \App\Models\TeachingSchedule::whereIn('lecturer_id', $lecturer_ids)
-                ->where('schedule_date', $schedule_date)
+                ->where('day', $day)
                 ->where(function ($query) use ($start_time, $end_time) {
                     $query->whereBetween('start_time', [$start_time, $end_time])
                         ->orWhereBetween('end_time', [$start_time, $end_time])
@@ -60,6 +64,6 @@ class Schedule extends Model
                 ->exists();
         }
 
-        return false; // Jika tidak ada dosen, tidak ada konflik
+        return false;
     }
 }
