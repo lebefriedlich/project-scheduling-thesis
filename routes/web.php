@@ -1,7 +1,10 @@
 <?php
 
-use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use Illuminate\Routing\Controllers\Middleware;
+use App\Http\Controllers\Mahasiswa\SemhasController;
+use App\Http\Controllers\Mahasiswa\SemproController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,18 +38,25 @@ Route::prefix('admin')->group(function () {
     Route::get('/lecturer/edit/{id}', App\Livewire\Admin\Lecturer\Edit::class)->name('admin.lecturer.edit');
 });
 
-// Route user
-Route::prefix('user')->group(function () {
-    Route::get('/periode', function () {
-        return view('pages/periode', ['title' => 'Periode']);
-    });
-    Route::get('/sempro', function () {
-        return view('pages/sempro', ['title' => 'Sempro']);
-    });
-    Route::get('/semhas', function () {
-        return view('pages/semhas', ['title' => 'Semhas']);
-    });
-    Route::get('/skripsi', function () {
-        return view('pages/skripsi', ['title' => 'Skripsi']);
+Route::get('/auth', function () {
+    return view('pages.auth', ['title' => 'Auth']);
+})->name('login');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/user', function () {
+        return redirect('/user/sempro');
+    })->name('user');
+
+    // Route user
+    Route::prefix('user')->group(function () {
+        Route::get('/sempro', [SemproController::class, 'index'])->name('user.sempro.index');
+        Route::post('/sempro', [SemproController::class, 'store'])->name('user.sempro.store');
+
+        Route::get('/semhas', [SemhasController::class, 'index'])->name('user.semhas.index');
+        Route::post('/semhas', [SemhasController::class, 'store'])->name('user.semhas.store');
+
+        Route::get('/skripsi', function () {
+            return view('pages.skripsi', ['title' => 'Skripsi']);
+        })->name('user.skripsi');
     });
 });

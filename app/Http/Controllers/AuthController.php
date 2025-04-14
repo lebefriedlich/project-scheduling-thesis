@@ -55,6 +55,7 @@ class AuthController extends Controller
                 // Redirect user ke halaman admin
             } else {
                 // Redirect user ke halaman dashboard
+                return redirect(route('user'));
             }
         } catch (\Exception $e) {
             dd($e);

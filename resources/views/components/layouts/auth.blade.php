@@ -24,19 +24,8 @@
     @vite([''])
 </head>
 
-<body class="g-sidenav-show   bg-gray-100">
-    <div class="position-absolute w-100 min-height-300 top-0"
-        style="background-image: url('{{ asset('assets/img/kampus-uinma.png') }}'); background-position-y: 50%; background-size: 100% auto;">
-        <span class="mask bg-primary opacity-6"></span>
-    </div>
-    <!-- Sidebar -->
-    <x-layouts.user-sidebar></x-layouts.user-sidebar>
-    <!-- Main Content -->
-    <main class="main-content position-relative border-radius-lg ">
-        <!-- Navbar -->
-        <x-layouts.navbar>{{ $title }}</x-layouts.navbar>
-        {{ $slot }}
-    </main>
+<body class="g-sidenav-show bg-gray-100">
+    {{ $slot }}
     <!-- Core JS Files Templates Argon Dashboard 3 -->
     <script src="{{ asset('assets/js/core/popper.min.js') }}"></script>
     <script src="{{ asset('assets/js/core/bootstrap.min.js') }}"></script>
