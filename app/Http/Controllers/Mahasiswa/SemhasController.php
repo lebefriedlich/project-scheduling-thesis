@@ -107,7 +107,7 @@ class SemhasController extends Controller
             $filename = time() . '_' . 'sempro' . '-' . Auth::user()->nim . '.' . $file->getClientOriginalExtension();
 
             $storage = Storage::disk('public')->putFileAs(
-                'sempro',
+                'semhas',
                 $file,
                 $filename
             );

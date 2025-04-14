@@ -1,23 +1,15 @@
 <?php
 
+use App\Http\Middleware\CheckIsAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use Illuminate\Routing\Controllers\Middleware;
 use App\Http\Controllers\Mahasiswa\SemhasController;
 use App\Http\Controllers\Mahasiswa\SemproController;
+use Illuminate\Support\Facades\Auth;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-// Redirect user ke Google untuk login
-Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
-
-// Handle callback dari Google setelah login
-Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
-
-Route::prefix('admin')->group(function () {
-    Route::get('/', App\Livewire\Admin\Index::class)->name('admin.index');
+Route::middleware(['auth', CheckIsAdmin::class])->prefix('admin')->group(function () {
+    Route::get('/dashboard', App\Livewire\Admin\Index::class)->name('admin.index');
     Route::get('/show-document-sempro/{id}', App\Livewire\Admin\ShowDocument\Sempro::class)->name('admin.show-document.sempro');
     Route::get('/show-document-semhas/{id}', App\Livewire\Admin\ShowDocument\Semhas::class)->name('admin.show-document.semhas');
 
@@ -38,9 +30,22 @@ Route::prefix('admin')->group(function () {
     Route::get('/lecturer/edit/{id}', App\Livewire\Admin\Lecturer\Edit::class)->name('admin.lecturer.edit');
 });
 
-Route::get('/auth', function () {
-    return view('pages.auth', ['title' => 'Auth']);
-})->name('login');
+Route::middleware(['guest'])->group(function () {
+    // Redirect user ke Google untuk login
+    Route::get('/auth/google', [AuthController::class, 'redirectToGoogle'])->name('auth.google');
+
+    // Handle callback dari Google setelah login
+    Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
+    
+    Route::get('/', function () {
+        if (Auth::check()) {
+            return redirect(Auth::user()->is_admin ? route('admin.index') : route('user'));
+        }
+    
+        return view('pages.auth', ['title' => 'Auth']);
+    })->name('login');
+});
+
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/user', function () {

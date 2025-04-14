@@ -45,8 +45,6 @@ class SemproController extends Controller
 
     public function store(Request $request)
     {
-        // dd($request->all());
-
         $sempro = Sempro::where('user_id', Auth::user()->id)->first();
         // dd($sempro);
 
@@ -82,6 +80,7 @@ class SemproController extends Controller
             }
         }
 
+        dd($request->hasFile('doc_pra_proposal'));
         if ($request->hasFile('doc_pra_proposal')) {
             $doc_pra_proposal = $request->file('doc_pra_proposal');
             $doc_pra_proposal_name = time() . '_' . 'sempro' . '-' . Auth::user()->nim . '.' . $doc_pra_proposal->getClientOriginalExtension();

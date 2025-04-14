@@ -22,13 +22,11 @@ class AuthController extends Controller
 
             // Validasi email harus dari student.uin-malang.ac.id
             if (
-                !str_ends_with($googleUser->getEmail(), '@student.uin-malang.ac.id') ||
+                !str_ends_with($googleUser->getEmail(), '@student.uin-malang.ac.id') &&
                 $googleUser->getEmail() != 'teknikinformatika.uinmalang@gmail.com'
             ) {
-                // Return error message
+                return redirect(route('login'))->with('error', 'Email tidak valid.');
             }
-
-            dd($googleUser);
 
             $emailParts = explode('@', $googleUser->getEmail());
             $nim = $emailParts[0];
@@ -52,14 +50,14 @@ class AuthController extends Controller
             Auth::login($user);
 
             if ($user->is_admin) {
-                // Redirect user ke halaman admin
+                return redirect(route('admin.index'));
             } else {
                 // Redirect user ke halaman dashboard
                 return redirect(route('user'));
             }
         } catch (\Exception $e) {
-            dd($e);
-            // Return error message
+            // Handle error
+            return redirect(route('login'))->with('error', 'Terjadi kesalahan saat login.');
         }
     }
 
