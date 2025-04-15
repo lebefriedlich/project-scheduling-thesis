@@ -7,7 +7,7 @@
                     <h3 class="text-center">Periode Belum Dibuka</h3>
                 @elseif ($periode->quota == 0)
                     <h3 class="text-center">Kuota Seminar Proposal Sudah Penuh</h3>
-                @elseif ($sempro->is_submit)
+                @elseif ($sempro->is_submit ?? false)
                     <h3 class="text-center">Anda Telah Mengajukan Seminar Proposal</h3>
                 @else
                     <h4 class="text-uppercase">Ajukan Jadwal Seminal Proposal</h4>

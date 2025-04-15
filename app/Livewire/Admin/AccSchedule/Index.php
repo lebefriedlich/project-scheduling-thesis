@@ -199,7 +199,7 @@ class Index extends Component
             'examiner_3',
         ]);
 
-        return $this->redirect(route('admin.index'));
+        return redirect()->route('admin.index');
     }
 
     protected function sendScheduleNotification($schedule, $master_name, $examiner_1_name, $examiner_2_name, $examiner_3_name)

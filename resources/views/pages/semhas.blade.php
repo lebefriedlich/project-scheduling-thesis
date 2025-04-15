@@ -4,11 +4,7 @@
     <div class="container-fluid py-4">
         <div class="card w-100">
             <div class="card-body p-3">
-
-                {{-- @dd($semhas->is_submit); --}}
-                @if ($isActiveForm)
-                    <h3 class="text-center">Anda Belum Seminar Hasil</h3>
-                @elseif ($periode == null)
+                @if (!$periode)
                     <h3 class="text-center">Periode Belum Dibuka</h3>
                 @elseif ($periode->quota == 0)
                     <h3 class="text-center">Kuota Seminar Hasil Sudah Penuh</h3>

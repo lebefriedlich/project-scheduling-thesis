@@ -1,27 +1,23 @@
 <div>
-    <div class="main">
-        <div class="main-content project">
-            <div class="row">
-                <div class="col-12">
-                    <div class="box">
-                        <div class="box-body">
-                            <div
-                                style="width: 100%; height: 600px; border: 1px solid #ccc; border-radius: 10px; overflow: hidden;">
-                                <iframe src="{{ $datas->kompre }}"
-                                    style="width: 100%; height: 100%; border: none;" allowfullscreen></iframe>
-                            </div>
-                            <div class="gr-btn mt-15">
-                                <a href="{{ route('admin.index') }}" class="btn btn-danger btn-lg mr-15 fs-16">Back</a>
-                                <button data-bs-toggle="modal" data-bs-target="#rejectionModal"
-                                    class="btn btn-warning btn-lg mr-15 fs-16">
-                                    Tolak
-                                </button>
-                                <a href="{{ route('admin.acc-schedule.index', ['exam_id' => $datas->id, 'exam_type' => 'Semhas']) }}"
-                                    class="btn btn-primary btn-lg mr-15 fs-16">Atur Jadwal</a>
-                                <div wire:loading>
-                                    <x-loading />
-                                </div>
-                            </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="box">
+                <div class="box-body">
+                    <div
+                        style="width: 100%; height: 600px; border: 1px solid #ccc; border-radius: 10px; overflow: hidden;">
+                        <iframe src="{{ asset('storage/' . $datas->kompre) }}"
+                            style="width: 100%; height: 100%; border: none;" allowfullscreen></iframe>
+                    </div>
+                    <div class="gr-btn mt-15">
+                        <a href="{{ route('admin.index') }}" class="btn btn-danger btn-lg mr-15 fs-16">Back</a>
+                        <button data-bs-toggle="modal" data-bs-target="#rejectionModal"
+                            class="btn btn-warning btn-lg mr-15 fs-16">
+                            Tolak
+                        </button>
+                        <a href="{{ route('admin.acc-schedule.index', ['exam_id' => $datas->id, 'exam_type' => 'Semhas']) }}"
+                            class="btn btn-primary btn-lg mr-15 fs-16">Atur Jadwal</a>
+                        <div wire:loading>
+                            <x-loading />
                         </div>
                     </div>
                 </div>

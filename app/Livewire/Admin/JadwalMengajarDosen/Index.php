@@ -6,13 +6,22 @@ use App\Models\TeachingSchedule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Imports\TeachingScheduleFullImport;
+use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
 
 class Index extends Component
 {
-    use WithFileUploads;
+    use WithFileUploads, WithPagination;
 
     public $fileExcel;
+    public $search = '';
+
+    protected $updatesQueryString = ['search'];
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
 
     public function importExcel()
     {
@@ -41,10 +50,26 @@ class Index extends Component
 
     public function render()
     {
-        $datas = TeachingSchedule::with('lecturer')
-            ->orderBy('day', 'desc')
-            ->get();
-
+        if ($this->search) {
+            $datas = TeachingSchedule::query()
+                ->where(function ($query) {
+                    $query->where('day', 'like', '%' . $this->search . '%')
+                        ->orWhere('start_time', 'like', '%' . $this->search . '%')
+                        ->orWhere('end_time', 'like', '%' . $this->search . '%')
+                        ->orWhere('course_name', 'like', '%' . $this->search . '%')
+                        ->orWhereHas('lecturer', function ($query) {
+                            $query->where('name', 'like', '%' . $this->search . '%');
+                        })
+                        ->orWhere('room', 'like', '%' . $this->search . '%')
+                        ->orWhere('class', 'like', '%' . $this->search . '%');
+                })
+                ->orderBy('created_at', 'desc')
+                ->paginate(50);
+        } else {
+            $datas = TeachingSchedule::with('lecturer')
+                ->orderBy('day', 'desc')
+                ->paginate(50);
+        }
         return view('livewire.admin.jadwal-mengajar-dosen.index', [
             'datas' => $datas,
         ])->layout('layouts.app', [

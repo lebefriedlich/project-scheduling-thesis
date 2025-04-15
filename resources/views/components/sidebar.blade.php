@@ -20,6 +20,11 @@
                 </a>
             </li>
             <li>
+                <a wire:navigate href="{{ route('admin.submission.index') }}">
+                    <i class="bx bxs-file-blank"></i>
+                    <span>List Pengajuan</span>
+                </a>
+            <li>
                 <a wire:navigate href="{{ route('admin.periode.index') }}">
                     <i class="bx bxs-timer"></i>
                     <span>List Periode</span>
@@ -43,44 +48,6 @@
                     <span>Data Dosen</span>
                 </a>
             </li>
-            {{-- <li>
-                <a wire:navigate href="{{ route('course') }}">
-                    <i class="bx bxs-book"></i>
-                    <span>List Kursus</span>
-                </a>
-            </li>
-            <li>
-                <a wire:navigate href="{{ route('article') }}">
-                    <i class="bx bxs-news"></i>
-                    <span>Artikel</span>
-                </a>
-            </li>
-            <li>
-                <a wire:navigate href="{{ route('voucher.index') }}">
-                    <i class="bx bxs-coupon"></i>
-                    <span>Voucher</span>
-                </a>
-            </li> --}}
-            {{-- <li class="sidebar-submenu">
-                <a href="#" @click.prevent="open = !open" class="sidebar-menu-dropdown">
-                    <i class="bx bxs-book"></i>
-                    <span>Kurikulum</span>
-                    <div class="dropdown-icon">
-                        <i class="bx bx-chevron-down"></i>
-                    </div>
-                </a>
-                <ul class="sidebar-menu sidebar-menu-dropdown-content">
-                    <li>
-                        <a wire:navigate href="{{ route('course') }}"> List Kursus </a>
-                    </li>
-                    <li>
-                        <a href="project-details.html"> Bab </a>
-                    </li>
-                    <li>
-                        <a href="new-project.html"> Sub Bab </a>
-                    </li>
-                </ul>
-            </li> --}}
             <li>
                 <a class="darkmode-toggle" id="darkmode-toggle" onclick="switchTheme()">
                     <div>

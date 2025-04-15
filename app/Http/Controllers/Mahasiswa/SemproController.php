@@ -69,7 +69,7 @@ class SemproController extends Controller
                 'periode_id' => 'required|exists:periodes,id',
                 'mentor_id' => 'required|exists:lecturers,id',
                 'second_mentor_id' => 'required|exists:lecturers,id',
-                'doc_pra_proposal' => 'required|file|mimes:pdf|max:2048',
+                'doc_pra_proposal' => 'required|file|mimes:pdf|max:5120',
                 // 'is_submit' => 'required|boolean',
             ], $messages);
 
@@ -80,7 +80,6 @@ class SemproController extends Controller
             }
         }
 
-        dd($request->hasFile('doc_pra_proposal'));
         if ($request->hasFile('doc_pra_proposal')) {
             $doc_pra_proposal = $request->file('doc_pra_proposal');
             $doc_pra_proposal_name = time() . '_' . 'sempro' . '-' . Auth::user()->nim . '.' . $doc_pra_proposal->getClientOriginalExtension();

@@ -22,7 +22,7 @@
                     </a>
                 </li> --}}
             <li class="nav-item">
-                <a class="nav-link " href="/user/sempro">
+                <a class="nav-link " href="{{ route('user.sempro.index') }}">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-collection text-dark text-sm opacity-10"></i>
@@ -39,19 +39,26 @@
                 $now = Carbon::now();
 
                 $sempro = Sempro::where('user_id', Auth::user()->id)->first();
-
-                $schedule = Schedule::where('exam_type', 'sempro')->where('exam_id', $sempro->id)->first();
-
+                // dd($sempro);
                 $isActive = false;
 
-                if ($schedule->end_time ?? null >= $now) {
-                    $isActive = true;
+                if ($sempro) {
+                    $schedule = Schedule::where('exam_type', Sempro::class)->where('exam_id', $sempro->id)->first();
+
+                    if ($schedule->end_time ?? null >= $now) {
+                        $isActive = true;
+                    }
+                } else {
+                    $isActive = false;
                 }
+
+                // dd($schedule);
+
             @endphp
 
             @if ($isActive)
                 <li class="nav-item">
-                    <a class="nav-link " href="/user/semhas">
+                    <a class="nav-link " href="{{ route('user.semhas.index') }}">
                         <div
                             class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="ni ni-collection text-dark text-sm opacity-10"></i>
@@ -60,15 +67,57 @@
                     </a>
                 </li>
             @endif
-            {{-- <li class="nav-item">
-                <a class="nav-link " href="/user/skripsi">
+
+            @php
+                use App\Models\Semhas;
+
+                $now = Carbon::now();
+
+                $semhas = Semhas::with('sempro')
+                    ->whereHas('sempro', function ($query) {
+                        $query->where('user_id', Auth::user()->id);
+                    })
+                    ->first();
+                // dd($sempro);
+                $isActive = false;
+
+                if ($semhas) {
+                    $schedule = Schedule::where('exam_type', Semhas::class)->where('exam_id', $semhas->id)->first();
+
+                    if ($schedule->end_time ?? null >= $now) {
+                        $isActive = true;
+                    }
+                } else {
+                    $isActive = false;
+                }
+
+                // dd($schedule);
+
+            @endphp
+            @if ($isActive)
+                <li class="nav-item">
+                    <a class="nav-link " href="{{ route('user.skripsi.index') }}">
+                        <div
+                            class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+                            <i class="ni ni-collection text-dark text-sm opacity-10"></i>
+                        </div>
+                        <span class="nav-link-text ms-1">Skripsi</span>
+                    </a>
+                </li>
+            @endif
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="ni ni-collection text-dark text-sm opacity-10"></i>
+                        <i class="ni ni-button-power text-dark text-sm opacity-10"></i>
                     </div>
-                    <span class="nav-link-text ms-1">Skripsi</span>
+                    <span class="nav-link-text ms-1">Logout</span>
                 </a>
-            </li> --}}
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </li>
         </ul>
     </div>
 </aside>

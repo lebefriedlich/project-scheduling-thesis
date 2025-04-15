@@ -4,12 +4,34 @@ namespace App\Livewire\Admin\Lecturer;
 
 use App\Models\Lecturer;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
+    use WithPagination;
+
+    public $fileExcel;
+    public $search = '';
+
+    protected $updatesQueryString = ['search'];
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
     public function render()
     {
-        $datas = Lecturer::all();
+        if ($this->search) {
+            $datas = Lecturer::query()
+                ->where(function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%')
+                        ->orWhere('nip', 'like', '%' . $this->search . '%');
+                })
+                ->orderBy('name')
+                ->paginate(10);
+        } else {
+            $datas = Lecturer::orderBy('name')->paginate(10);
+        }
         
         return view('livewire.admin.lecturer.index', [
             'datas' => $datas,

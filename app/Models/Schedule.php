@@ -49,7 +49,7 @@ class Schedule extends Model
     {
         if (!empty($lecturer_ids)) {
             // Ubah schedule_date ke nama hari dalam bahasa Indonesia
-            $day = Carbon::parse($schedule_date)->translatedFormat('l'); // Misal: 'Wednesday'
+            $day = Carbon::parse($schedule_date)->translatedFormat('l');
 
             return \App\Models\TeachingSchedule::whereIn('lecturer_id', $lecturer_ids)
                 ->where('day', $day)

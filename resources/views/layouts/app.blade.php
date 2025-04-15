@@ -118,16 +118,22 @@
                             alt="Header Avatar" />
                         <span class="pulse-css"></span>
                         <span class="info d-xl-inline-block color-span">
-                            <span class="d-block fs-20 font-w600">Randy Riley</span>
-                            <span class="d-block mt-7">randy.riley@gmail.com</span>
+                            <span class="d-block fs-20 font-w600">{{ Auth::user()->name }}</span>
+                            <span class="d-block mt-7">{{ Auth::user()->email }}</span>
                         </span>
 
                         <i class="bx bx-chevron-down"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
-                        <a class="dropdown-item text-danger" href="user-login.html"><i
-                                class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
-                            <span>Logout</span></a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+
+                        <a class="dropdown-item text-danger" href="#"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
+                            <span>Logout</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -135,7 +141,11 @@
         <!-- End Main Header -->
 
         <!-- MAIN CONTENT -->
-        {{ $slot }}
+        <div class="main">
+            <div class="main-content project">
+                {{ $slot }}
+            </div>
+        </div>
         <!-- END MAIN CONTENT -->
 
         <div class="overlay"></div>
@@ -152,7 +162,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    
+
     @stack('scripts')
 
     <script>

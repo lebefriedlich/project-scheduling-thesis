@@ -102,6 +102,6 @@ class AuthController extends Controller
     {
         Auth::logout();
 
-        // Redirect user ke halaman login
+        return redirect(route('login'))->with('success', 'Logout berhasil.');
     }
 }
