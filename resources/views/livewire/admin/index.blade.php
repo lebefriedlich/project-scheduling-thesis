@@ -204,7 +204,7 @@
                                             {{ Carbon\Carbon::parse($data->schedules[0]->schedule_date)->locale('id')->isoFormat('D MMMM YYYY') }}
                                         </td>
                                         <td class="text-center">
-                                            {{ $data->schedules[0]->start_time . ' - ' . $data->schedules[0]->end_time }}
+                                            {{ \Carbon\Carbon::parse($data->schedules[0]->start_time)->format('H:i') . ' - ' . \Carbon\Carbon::parse($data->schedules[0]->end_time)->format('H:i') }}
                                         </td>
                                         <td class="text-center">{{ $data->schedules[0]->location->name }}</td>
                                         <td class="text-center">
