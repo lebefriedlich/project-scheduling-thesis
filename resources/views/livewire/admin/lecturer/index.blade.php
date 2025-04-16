@@ -9,7 +9,7 @@
                             <i class="bx bx-plus-circle me-2"></i> Tambah Data Dosen
                         </a>
                     </div>
-                    @if (!$datas->isEmpty())
+                    @if (!$datas->isEmpty() || $is_search)
                         <div class="d-flex align-items-center mb-4">
                             <div class="col d-flex justify-content-end">
                                 <input type="text" class="form-control w-auto" placeholder="Cari..."
@@ -17,7 +17,11 @@
                             </div>
                         </div>
                     @endif
-                    @if ($datas->isEmpty())
+                    @if ($datas->isEmpty() && $search)
+                        <div class="text-center my-4">
+                            <strong>Data tidak ditemukan</strong>
+                        </div>
+                    @elseif ($datas->isEmpty())
                         <div class="text-center my-4">
                             <strong>Data masih kosong</strong>
                         </div>

@@ -4,7 +4,7 @@
             <div class="box">
                 <div class="box-body">
                     <div class="row align-items-center mb-5">
-                        @if ($datas->isEmpty())
+                        @if ($datas->isEmpty() && !$is_search)
                             <div class="col d-flex justify-content-start">
                                 <button type="button" class="btn btn-success ms-2" data-bs-toggle="modal"
                                     data-bs-target="#importModal">
@@ -12,7 +12,7 @@
                                 </button>
                             </div>
                         @endif
-                        @if (!$datas->isEmpty())
+                        @if (!$datas->isEmpty() || $is_search)
                             <div class="col d-flex justify-content-end">
                                 <input type="text" class="form-control w-auto" placeholder="Cari..."
                                     wire:model.live.debounce.300ms="search">
@@ -51,7 +51,11 @@
                             </form>
                         </div>
                     </div>
-                    @if ($datas->isEmpty())
+                    @if ($datas->isEmpty() && $search)
+                        <div class="text-center my-4">
+                            <strong>Data tidak ditemukan</strong>
+                        </div>
+                    @elseif ($datas->isEmpty())
                         <div class="text-center my-4">
                             <strong>Data masih kosong</strong>
                         </div>

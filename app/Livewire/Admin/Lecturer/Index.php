@@ -29,12 +29,17 @@ class Index extends Component
                 })
                 ->orderBy('name')
                 ->paginate(10);
+            
+            $is_search = true;
         } else {
             $datas = Lecturer::orderBy('name')->paginate(10);
+
+            $is_search = false;
         }
         
         return view('livewire.admin.lecturer.index', [
             'datas' => $datas,
+            'is_search' => $is_search,
         ])->layout('layouts.app', [
             'subTitle' => 'List Data Dosen',
         ])->title('Admin - List Data Dosen');

@@ -60,13 +60,19 @@ class Index extends Component
                 })
                 ->orderBy('created_at', 'desc')
                 ->paginate(50);
+
+            $is_search = true;
         } else {
             $datas = TeachingSchedule::with('lecturer')
                 ->orderBy('day', 'desc')
                 ->paginate(50);
+
+            $is_search = false;
         }
+
         return view('livewire.admin.jadwal-mengajar-dosen.index', [
             'datas' => $datas,
+            'is_search' => $is_search,
         ])->layout('layouts.app', [
             'subTitle' => 'Jadwal Mengajar Dosen',
         ])->title('Jadwal Mengajar Dosen');
