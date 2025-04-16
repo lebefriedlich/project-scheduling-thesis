@@ -59,10 +59,12 @@
                             {{-- Ketua Penguji --}}
                             <div class="col-md-4 mb-24">
                                 <label class="form-label">Ketua Penguji</label>
-                                <select wire:model.live.debounce.300ms="examiner_chairman" class="form-control">
+                                <select wire:model.lazy="examiner_chairman" class="form-control">
                                     <option value="">Pilih Dosen</option>
-                                    @foreach ($this->getFilteredLecturers([$examiner_1, $examiner_2]) as $lecturer)
-                                        <option value="{{ $lecturer['id'] }}">{{ $lecturer['name'] }}</option>
+                                    @foreach ($lecturers as $lecturer)
+                                        @if ($lecturer->id != $examiner_1 && $lecturer->id != $examiner_2)
+                                            <option value="{{ $lecturer->id }}">{{ $lecturer->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -70,10 +72,12 @@
                             {{-- Penguji 1 --}}
                             <div class="col-md-4 mb-24">
                                 <label class="form-label">Penguji 1</label>
-                                <select wire:model.live.debounce.300ms="examiner_1" class="form-control">
+                                <select wire:model.lazy="examiner_1" class="form-control">
                                     <option value="">Pilih Dosen</option>
-                                    @foreach ($this->getFilteredLecturers([$examiner_chairman, $examiner_2]) as $lecturer)
-                                        <option value="{{ $lecturer['id'] }}">{{ $lecturer['name'] }}</option>
+                                    @foreach ($lecturers as $lecturer)
+                                        @if ($lecturer->id != $examiner_chairman && $lecturer->id != $examiner_2)
+                                            <option value="{{ $lecturer->id }}">{{ $lecturer->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -81,10 +85,12 @@
                             {{-- Penguji 2 (Pembimbing 1) --}}
                             <div class="col-md-4 mb-24">
                                 <label class="form-label">Penguji 2 (Pembimbing 1)</label>
-                                <select wire:model.live.debounce.300ms="examiner_2" class="form-control">
+                                <select wire:model.lazy="examiner_2" class="form-control">
                                     <option value="">Pilih Dosen</option>
-                                    @foreach ($this->getFilteredLecturers([$examiner_chairman, $examiner_1]) as $lecturer)
-                                        <option value="{{ $lecturer['id'] }}">{{ $lecturer['name'] }}</option>
+                                    @foreach ($lecturers as $lecturer)
+                                        @if ($lecturer->id != $examiner_chairman && $lecturer->id != $examiner_1)
+                                            <option value="{{ $lecturer->id }}">{{ $lecturer->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -94,10 +100,12 @@
                             {{-- Ketua Penguji --}}
                             <div class="col-md-3 mb-24">
                                 <label class="form-label">Ketua Penguji</label>
-                                <select wire:model.live.debounce.300ms="examiner_chairman" class="form-control">
+                                <select wire:model.lazy="examiner_chairman" class="form-control">
                                     <option value="">Pilih Dosen</option>
-                                    @foreach ($this->getFilteredLecturers([$examiner_1, $examiner_2, $examiner_3]) as $lecturer)
-                                        <option value="{{ $lecturer['id'] }}">{{ $lecturer['name'] }}</option>
+                                    @foreach ($lecturers as $lecturer)
+                                        @if ($lecturer->id != $examiner_1 && $lecturer->id != $examiner_2)
+                                            <option value="{{ $lecturer->id }}">{{ $lecturer->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -105,10 +113,12 @@
                             {{-- Penguji 1 --}}
                             <div class="col-md-3 mb-24">
                                 <label class="form-label">Penguji 1</label>
-                                <select wire:model.live.debounce.300ms="examiner_1" class="form-control">
+                                <select wire:model.lazy="examiner_1" class="form-control">
                                     <option value="">Pilih Dosen</option>
-                                    @foreach ($this->getFilteredLecturers([$examiner_chairman, $examiner_2, $examiner_3]) as $lecturer)
-                                        <option value="{{ $lecturer['id'] }}">{{ $lecturer['name'] }}</option>
+                                    @foreach ($lecturers as $lecturer)
+                                        @if ($lecturer->id != $examiner_chairman && $lecturer->id != $examiner_2)
+                                            <option value="{{ $lecturer->id }}">{{ $lecturer->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -116,10 +126,12 @@
                             {{-- Penguji 2 (Pembimbing 1) --}}
                             <div class="col-md-3 mb-24">
                                 <label class="form-label">Penguji 2 (Pembimbing 1)</label>
-                                <select wire:model.live.debounce.300ms="examiner_2" class="form-control">
+                                <select wire:model.lazy="examiner_2" class="form-control">
                                     <option value="">Pilih Dosen</option>
-                                    @foreach ($this->getFilteredLecturers([$examiner_chairman, $examiner_1, $examiner_3]) as $lecturer)
-                                        <option value="{{ $lecturer['id'] }}">{{ $lecturer['name'] }}</option>
+                                    @foreach ($lecturers as $lecturer)
+                                        @if ($lecturer->id != $examiner_chairman && $lecturer->id != $examiner_1)
+                                            <option value="{{ $lecturer->id }}">{{ $lecturer->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -127,10 +139,12 @@
                             {{-- Penguji 3 (Pembimbing 2) --}}
                             <div class="col-md-3 mb-24">
                                 <label class="form-label">Penguji 3 (Pembimbing 2)</label>
-                                <select wire:model.live.debounce.300ms="examiner_3" class="form-control">
+                                <select wire:model.lazy="examiner_3" class="form-control">
                                     <option value="">Pilih Dosen</option>
-                                    @foreach ($this->getFilteredLecturers([$examiner_chairman, $examiner_1, $examiner_2]) as $lecturer)
-                                        <option value="{{ $lecturer['id'] }}">{{ $lecturer['name'] }}</option>
+                                    @foreach ($lecturers as $lecturer)
+                                        @if ($lecturer->id != $examiner_chairman && $lecturer->id != $examiner_1 && $lecturer->id != $examiner_2)
+                                            <option value="{{ $lecturer->id }}">{{ $lecturer->name }}</option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>

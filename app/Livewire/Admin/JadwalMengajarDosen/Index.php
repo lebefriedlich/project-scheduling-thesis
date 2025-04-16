@@ -32,19 +32,14 @@ class Index extends Component
         try {
             Excel::import(new TeachingScheduleFullImport, $this->fileExcel->getRealPath());
 
-            $this->dispatch('flashMessage', [
-                'type' => 'success',
-                'message' => 'Data berhasil diimport',
-            ]);
+            session()->flash('message', 'Data berhasil diimport');
+            return redirect()->route('admin.jadwal-mengajar-dosen.index');
         } catch (\Exception $e) {
             $this->dispatch('flashMessage', [
                 'type' => 'error',
                 'message' => 'Terjadi kesalahan saat mengimpor data: ' . $e->getMessage(),
             ]);
         }
-
-        session()->flash('message', 'Data berhasil diimport');
-        return redirect()->route('admin.jadwal-mengajar-dosen.index');
     }
 
 

@@ -57,7 +57,7 @@ class Index extends Component
     {
         $this->exam_id = $exam_id;
         $this->exam = $exam_type;
-        $this->lecturers = Lecturer::select('id', 'name')->get()->toArray();
+        $this->lecturers = Lecturer::select('id', 'name')->get();
 
         $modelMap = [
             'Sempro' => \App\Models\Sempro::class,
@@ -110,13 +110,6 @@ class Index extends Component
             ->layout('layouts.app', [
                 'subTitle' => 'Acc Schedule ' . $this->exam,
             ])->title('Acc Schedule ' . $this->exam);
-    }
-
-    public function getFilteredLecturers($except = [])
-    {
-        return collect($this->lecturers)->filter(function ($lecturer) use ($except) {
-            return !in_array($lecturer['id'], $except);
-        });
     }
 
     public function submit()
