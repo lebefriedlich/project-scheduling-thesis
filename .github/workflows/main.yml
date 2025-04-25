@@ -19,7 +19,7 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME_NON_PUBLIC }}
           password: ${{ secrets.FTP_PASSWORD_NON_PUBLIC }}
-          server-dir: /laravel-testscheduling/  # Folder aplikasi Laravel di server
+          server-dir: /  # Folder aplikasi Laravel di server
           local-dir: ./  # Direktori root aplikasi Laravel
           exclude: |
             public/*
@@ -34,5 +34,5 @@ jobs:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /testscheduling.mhna.my.id/  # Folder untuk subdomain
+          server-dir: /  # Folder untuk subdomain
           local-dir: ./public/  # Folder public Laravel
