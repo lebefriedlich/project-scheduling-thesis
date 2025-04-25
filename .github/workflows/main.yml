@@ -23,10 +23,6 @@ jobs:
           local-dir: ./  # Direktori root aplikasi Laravel
           exclude: |
             public/*
-            .git*
-            .github/*
-            node_modules/
-            tests/
 
       - name: Upload folder public ke subdomain
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
