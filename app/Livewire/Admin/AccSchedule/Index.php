@@ -71,15 +71,17 @@ class Index extends Component
             $sempro = \App\Models\Sempro::with('periode')->find($exam_id);
             if ($sempro) {
                 $this->examiner_2 = $sempro->mentor_id;
+                $this->examiner_3 = $sempro->second_mentor_id;
                 $this->startScheduleDate = $sempro->periode->start_schedule;
                 $this->endScheduleDate = $sempro->periode->end_schedule;
             }
         } elseif ($this->exam_type == \App\Models\Semhas::class) {
-            $semhas = \App\Models\Semhas::with(['sempro.periode', 'sempro.schedules.scheduleLecturers'])->find($exam_id);
+            $semhas = \App\Models\Semhas::with(['periode', 'sempro.schedules.scheduleLecturers'])->find($exam_id);
             if ($semhas) {
                 $this->examiner_2 = $semhas->sempro->mentor_id;
-                $this->startScheduleDate = $semhas->sempro->periode->start_schedule;
-                $this->endScheduleDate = $semhas->sempro->periode->end_schedule;
+                $this->examiner_3 = $semhas->sempro->second_mentor_id;
+                $this->startScheduleDate = $semhas->periode->start_schedule;
+                $this->endScheduleDate = $semhas->periode->end_schedule;
 
                 $semproSchedule = $semhas->sempro->schedules;
                 $firstSchedule = $semproSchedule->first();
@@ -90,12 +92,12 @@ class Index extends Component
                 }
             }
         } elseif ($this->exam_type == \App\Models\Skripsi::class) {
-            $skripsi = \App\Models\Skripsi::with('semhas.sempro.periode')->find($exam_id);
+            $skripsi = \App\Models\Skripsi::with('semhas.sempro', 'periode')->find($exam_id);
             if ($skripsi) {
                 $this->examiner_2 = $skripsi->semhas->sempro->mentor_id;
                 $this->examiner_3 = $skripsi->semhas->sempro->second_mentor_id;
-                $this->startScheduleDate = $skripsi->semhas->sempro->periode->start_schedule;
-                $this->endScheduleDate = $skripsi->semhas->sempro->periode->end_schedule;
+                $this->startScheduleDate = $skripsi->periode->start_schedule;
+                $this->endScheduleDate = $skripsi->periode->end_schedule;
             }
         }
     }

@@ -34,7 +34,7 @@
                     @foreach ($errors->all() as $error)
                         <li class="d-flex align-items-center mb-2">
                             <span class="badge badge-danger mr-2">!</span>
-                            <strong>{{ $error }}</strong>
+                            <strong class="ms-1">{{ $error }}</strong>
                         </li>
                     @endforeach
                 </ul>

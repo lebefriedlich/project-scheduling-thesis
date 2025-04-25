@@ -62,7 +62,7 @@
                                 <select wire:model.lazy="examiner_chairman" class="form-control">
                                     <option value="">Pilih Dosen</option>
                                     @foreach ($lecturers as $lecturer)
-                                        @if ($lecturer->id != $examiner_1 && $lecturer->id != $examiner_2)
+                                        @if ($lecturer->id != $examiner_1 && $lecturer->id != $examiner_2 && $lecturer->id != $examiner_3)
                                             <option value="{{ $lecturer->id }}">{{ $lecturer->name }}</option>
                                         @endif
                                     @endforeach
@@ -75,7 +75,7 @@
                                 <select wire:model.lazy="examiner_1" class="form-control">
                                     <option value="">Pilih Dosen</option>
                                     @foreach ($lecturers as $lecturer)
-                                        @if ($lecturer->id != $examiner_chairman && $lecturer->id != $examiner_2)
+                                        @if ($lecturer->id != $examiner_chairman && $lecturer->id != $examiner_2 && $lecturer->id != $examiner_3)
                                             <option value="{{ $lecturer->id }}">{{ $lecturer->name }}</option>
                                         @endif
                                     @endforeach
@@ -103,7 +103,7 @@
                                 <select wire:model.lazy="examiner_chairman" class="form-control">
                                     <option value="">Pilih Dosen</option>
                                     @foreach ($lecturers as $lecturer)
-                                        @if ($lecturer->id != $examiner_1 && $lecturer->id != $examiner_2)
+                                        @if ($lecturer->id != $examiner_1 && $lecturer->id != $examiner_2 && $lecturer->id != $examiner_3)
                                             <option value="{{ $lecturer->id }}">{{ $lecturer->name }}</option>
                                         @endif
                                     @endforeach
@@ -116,7 +116,7 @@
                                 <select wire:model.lazy="examiner_1" class="form-control">
                                     <option value="">Pilih Dosen</option>
                                     @foreach ($lecturers as $lecturer)
-                                        @if ($lecturer->id != $examiner_chairman && $lecturer->id != $examiner_2)
+                                        @if ($lecturer->id != $examiner_chairman && $lecturer->id != $examiner_2 && $lecturer->id != $examiner_3)
                                             <option value="{{ $lecturer->id }}">{{ $lecturer->name }}</option>
                                         @endif
                                     @endforeach
@@ -129,7 +129,7 @@
                                 <select wire:model.lazy="examiner_2" class="form-control">
                                     <option value="">Pilih Dosen</option>
                                     @foreach ($lecturers as $lecturer)
-                                        @if ($lecturer->id != $examiner_chairman && $lecturer->id != $examiner_1)
+                                        @if ($lecturer->id != $examiner_chairman && $lecturer->id != $examiner_1 && $lecturer->id != $examiner_3)
                                             <option value="{{ $lecturer->id }}">{{ $lecturer->name }}</option>
                                         @endif
                                     @endforeach

@@ -56,19 +56,22 @@ class SemproController extends Controller
 
         if (!$sempro) {
             $messages = [
-                // 'required' => 'The :attribute field is required.',
-                'exists' => 'The selected :attribute is invalid.',
-                'file' => 'The :attribute must be a file.',
-                'mimes' => 'The :attribute must be a file of type: :values.',
-                'max' => 'The :attribute may not be greater than :max kilobytes.',
-                // 'boolean' => 'The :attribute field must be submit or Draft.',
+                'mentor_id.required' => 'Dosen Pembimbing 1 tidak boleh kosong',
+                'mentor_id.exists' => 'Dosen Pembimbing 1 tidak ada',
+                'second_mentor_id.required' => 'Dosen Pembimbing 2 tidak boleh kosong',
+                'second_mentor_id.exists' => 'Dosen Pembimbing 2 tidak ada',
+                'second_mentor_id.different' => 'Dosen Pembimbing 2 tidak boleh sama dengan Dosen Pembimbing 1',
+                'doc_pra_proposal.required' => 'File dokumen tidak boleh kosong',
+                'doc_pra_proposal.file' => 'File dokumen harus berupa file',
+                'doc_pra_proposal.mimes' => 'File dokumen harus berupa file pdf',
+                'doc_pra_proposal.max' => 'File dokumen tidak boleh lebih dari 5 MB',
             ];
 
             $validator = Validator::make($request->all(), [
                 // 'user_id' => 'required|exists:users,id',
                 'periode_id' => 'required|exists:periodes,id',
                 'mentor_id' => 'required|exists:lecturers,id',
-                'second_mentor_id' => 'required|exists:lecturers,id',
+                'second_mentor_id' => 'required|exists:lecturers,id|different:mentor_id',
                 'doc_pra_proposal' => 'required|file|mimes:pdf|max:5120',
                 // 'is_submit' => 'required|boolean',
             ], $messages);

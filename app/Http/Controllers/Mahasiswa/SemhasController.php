@@ -19,65 +19,29 @@ class SemhasController extends Controller
     public function index()
     {
         $now = Carbon::now();
-        $today = $now->toDateString(); // Format: Y-m-d
-        $currentTime = $now->format('H:i'); // Format: H:i:s
 
-        // check periode
         $periode = Periode::where('type', 'semhas')
             ->where('end_registration', '>=', $now)->oldest()->first();
 
-        // dd($periode);
 
-        // if (!$periode) {
-        //     // return view not found periode, can't submit sempro
-        // }
-
-        $semhas = Semhas::with('sempro')
+        $semhas = Semhas::with(['sempro', 'sempro.schedules'])
             ->whereHas('sempro', function ($query) {
                 $query->where('user_id', Auth::user()->id);
             })
             ->first();
+        
+        if ($semhas) {
+            $schedule = $semhas->sempro->schedules->first();
 
-        $sempro = Sempro::where('user_id', Auth::user()->id)
-            ->whereHas('schedules', function ($query) {
-                $query->where('exam_type', Sempro::class);
-            })->first();
-
-        if (!$sempro) {
-            // return view not found sempro, can't submit semhas
-            return redirect(route('user.sempro.index'));
+            if ($schedule && $schedule->schedule_date >= $now) {
+                return redirect()->route('user.sempro.index');
+            }
+        } else {
+            return redirect()->route('user.sempro.index');
         }
-
-        // $schedule = Schedule::where('exam_type', Sempro::class)->where('exam_id', $sempro->id)->first();
-        // // dd($schedule->schedule_date, $today, $schedule->end_time, $currentTime);
-
-        // $isActiveForm = false;
-
-        // // dd(            ($schedule->schedule_date ?? null) > $today || 
-        // // (
-        // //     ($schedule->schedule_date ?? null) == $today &&
-        // //     ($schedule->end_time ?? null) >= $currentTime
-        // // ));
-
-        // if (
-        //     ($schedule->schedule_date ?? null) > $today ||
-        //     (
-        //         ($schedule->schedule_date ?? null) == $today &&
-        //         ($schedule->end_time ?? null) >= $currentTime
-        //     )
-        // ) {
-        //     $isActiveForm = true;
-        // }
-
-        // dd($semhas);
-
-        // if ($data_semhas->isEmpty()) {
-        //     // return view not found semhas, can't submit semhas
-        // }
 
         $title = 'Semhas';
 
-        // return view with data, periode and lecture
         return view('pages.semhas', compact('semhas', 'periode', 'title'));
     }
 
@@ -101,12 +65,10 @@ class SemhasController extends Controller
         if (!$semhas) {
 
             $messages = [
-                'required' => 'The :attribute field is required.',
-                'exists' => 'The selected :attribute is invalid.',
-                'boolean' => 'The :attribute field must be submit or Draft.',
-                'file' => 'The :attribute must be a file.',
-                'mimes' => 'The :attribute must be a file of type: pdf.',
-                'max' => 'The :attribute may not be greater than 2MB.',
+                'kompre.required' => 'File Kompre tidak boleh kosong',
+                'kompre.file' => 'File Kompre harus berupa file',
+                'kompre.mimes' => 'File Kompre harus berupa file dengan format pdf',
+                'kompre.max' => 'File Kompre tidak boleh lebih dari 5 MB',
             ];
 
             $validator = Validator::make($request->all(), [

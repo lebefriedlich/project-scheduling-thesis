@@ -40,23 +40,24 @@
 
                 $sempro = Sempro::where('user_id', Auth::user()->id)->first();
                 // dd($sempro);
-                $isActive = false;
+                $isActiveSemhas = false;
 
                 if ($sempro) {
                     $schedule = Schedule::where('exam_type', Sempro::class)->where('exam_id', $sempro->id)->first();
 
-                    if ($schedule->end_time ?? null >= $now) {
-                        $isActive = true;
+                    if (isset($schedule) && $schedule->schedule_date <= $now) {
+                        $isActiveSemhas = true;
+                    } else {
+                        $isActiveSemhas = false;
                     }
                 } else {
-                    $isActive = false;
+                    $isActiveSemhas = false;
                 }
 
-                // dd($schedule);
-
+                // $isActiveSemhas = true;
             @endphp
 
-            @if ($isActive)
+            @if ($isActiveSemhas)
                 <li class="nav-item">
                     <a class="nav-link " href="{{ route('user.semhas.index') }}">
                         <div
@@ -78,23 +79,24 @@
                         $query->where('user_id', Auth::user()->id);
                     })
                     ->first();
-                // dd($sempro);
-                $isActive = false;
+
+                $isActiveSkripsi = false;
 
                 if ($semhas) {
                     $schedule = Schedule::where('exam_type', Semhas::class)->where('exam_id', $semhas->id)->first();
 
-                    if ($schedule->end_time ?? null >= $now) {
-                        $isActive = true;
+                    if (isset($schedule) && $schedule->schedule_date <= $now) {
+                        $isActiveSkripsi = true;
+                    } else {
+                        $isActiveSkripsi = false;
                     }
                 } else {
-                    $isActive = false;
+                    $isActiveSkripsi = false;
                 }
-
-                // dd($schedule);
-
+                
+                // $isActiveSkripsi = true;
             @endphp
-            @if ($isActive)
+            @if ($isActiveSkripsi)
                 <li class="nav-item">
                     <a class="nav-link " href="{{ route('user.skripsi.index') }}">
                         <div
@@ -107,7 +109,8 @@
             @endif
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <a class="nav-link" href="{{ route('logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <div
                         class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-button-power text-dark text-sm opacity-10"></i>
