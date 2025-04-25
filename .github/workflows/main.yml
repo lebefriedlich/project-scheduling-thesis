@@ -22,7 +22,7 @@ jobs:
           server-dir: /  # Folder aplikasi Laravel di server
           local-dir: ./  # Direktori root aplikasi Laravel
           exclude: |
-            public/*
+            public
 
       - name: Upload folder public ke subdomain
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
