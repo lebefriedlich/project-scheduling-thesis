@@ -54,7 +54,7 @@
                     $isActiveSemhas = false;
                 }
 
-                // $isActiveSemhas = true;
+                $isActiveSemhas = true;
             @endphp
 
             @if ($isActiveSemhas)
@@ -94,7 +94,7 @@
                     $isActiveSkripsi = false;
                 }
                 
-                // $isActiveSkripsi = true;
+                $isActiveSkripsi = true;
             @endphp
             @if ($isActiveSkripsi)
                 <li class="nav-item">

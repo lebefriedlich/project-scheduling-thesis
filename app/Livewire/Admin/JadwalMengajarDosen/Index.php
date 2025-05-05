@@ -77,4 +77,11 @@ class Index extends Component
             'subTitle' => 'Jadwal Mengajar Dosen',
         ])->title('Jadwal Mengajar Dosen');
     }
+
+    public function deleteAll()
+    {
+        TeachingSchedule::truncate();
+        session()->flash('message', 'Data berhasil dihapus');
+        return redirect()->route('admin.jadwal-mengajar-dosen.index');
+    }
 }

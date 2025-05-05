@@ -13,6 +13,12 @@
                             </div>
                         @endif
                         @if (!$datas->isEmpty() || $is_search)
+                            <div class="col d-flex justify-content-start">
+                                <button type="button" class="btn btn-danger ms-2" data-bs-toggle="modal"
+                                    data-bs-target="#hapusModal">
+                                    <i class="bx bx-trash me-2"></i> Hapus Data Jadwal Mengajar
+                                </button>
+                            </div>
                             <div class="col d-flex justify-content-end">
                                 <input type="text" class="form-control w-auto" placeholder="Cari..."
                                     wire:model.live.debounce.300ms="search">
@@ -46,6 +52,30 @@
 
                                     <div class="modal-footer">
                                         <button type="submit" class="btn btn-primary">Import</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div wire:ignore.self class="modal fade" id="hapusModal" tabindex="-1"
+                        aria-labelledby="hapusModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form wire:submit.prevent="deleteAll">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="hapusModalLabel">Hapus Semua Data Jadwal Mengajar
+                                        </h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <p>Apakah Anda yakin ingin menghapus semua data jadwal mengajar?</p>
+                                        <p>Data yang dihapus tidak dapat dikembalikan.</p>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-danger">Hapus</button>
                                     </div>
                                 </div>
                             </form>

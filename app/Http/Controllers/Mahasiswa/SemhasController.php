@@ -30,15 +30,15 @@ class SemhasController extends Controller
             })
             ->first();
         
-        if ($semhas) {
-            $schedule = $semhas->sempro->schedules->first();
+        // if ($semhas) {
+        //     $schedule = $semhas->sempro->schedules->first();
 
-            if (empty($schedule) || $schedule->schedule_date >= $now) {
-                return redirect()->route('user.sempro.index');
-            }
-        } else {
-            return redirect()->route('user.sempro.index');
-        }
+        //     if (empty($schedule) || $schedule->schedule_date >= $now) {
+        //         return redirect()->route('user.sempro.index');
+        //     }
+        // } else {
+        //     return redirect()->route('user.sempro.index');
+        // }
 
         $title = 'Semhas';
 

@@ -9,7 +9,7 @@
                             style="width: 100%; height: 100%; border: none;" allowfullscreen></iframe>
                     </div>
                     <div class="gr-btn mt-15">
-                        <a href="{{ route('admin.index') }}" class="btn btn-danger btn-lg mr-15 fs-16">Back</a>
+                        <a href="{{ route('admin.submission.index') }}" class="btn btn-danger btn-lg mr-15 fs-16">Back</a>
                         <button data-bs-toggle="modal" data-bs-target="#rejectionModal"
                             class="btn btn-warning btn-lg mr-15 fs-16">
                             Tolak

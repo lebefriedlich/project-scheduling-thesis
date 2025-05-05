@@ -33,27 +33,27 @@ class SkripsiController extends Controller
             ->where('user_id', Auth::user()->id)
             ->first();
 
-        if ($sempro) {
-            $schedule = $sempro->schedules->first();
+        // if ($sempro) {
+        //     $schedule = $sempro->schedules->first();
 
-            if (empty($schedule) || $schedule->schedule_date >= $now) {
-                return redirect(route('user.sempro.index'));
-            }
-        } else {
-            return redirect(route('user.sempro.index'));
-        }
+        //     if (empty($schedule) || $schedule->schedule_date >= $now) {
+        //         return redirect(route('user.sempro.index'));
+        //     }
+        // } else {
+        //     return redirect(route('user.sempro.index'));
+        // }
 
         $semhas = $sempro->semhas;
 
-        if ($semhas) {
-            $schedule = $semhas->schedules->first();
+        // if ($semhas) {
+        //     $schedule = $semhas->schedules->first();
 
-            if (empty($schedule) || $schedule->schedule_date >= $now) {
-                return redirect()->route('user.semhas.index');
-            }
-        } else {
-            return redirect()->route('user.semhas.index');
-        }
+        //     if (empty($schedule) || $schedule->schedule_date >= $now) {
+        //         return redirect()->route('user.semhas.index');
+        //     }
+        // } else {
+        //     return redirect()->route('user.semhas.index');
+        // }
 
         $title = 'Skripsi';
 

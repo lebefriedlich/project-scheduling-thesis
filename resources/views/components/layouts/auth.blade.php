@@ -21,7 +21,7 @@
     <!-- CSS Files Templates Argon Dashboard 3 -->
     <link id="pagestyle" href="{{ asset('assets/css/argon-dashboard.css') }}?v=2.1.0" rel="stylesheet" />
     <link id="pagestyle" href="{{ asset('assets/css/argon-dashboard-pro.css') }}" rel="stylesheet" />
-    {{-- @vite(['']) --}}
+    @vite([''])
 </head>
 
 <body class="g-sidenav-show bg-gray-100">
