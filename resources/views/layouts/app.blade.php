@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
 
     <!-- APP CSS -->
-    @vite(['resources/css/app.css'])
+    {{-- @vite(['resources/css/app.css']) --}}
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/grid.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/style.css') }}" />
