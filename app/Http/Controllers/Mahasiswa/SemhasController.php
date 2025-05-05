@@ -33,7 +33,7 @@ class SemhasController extends Controller
         if ($semhas) {
             $schedule = $semhas->sempro->schedules->first();
 
-            if ($schedule && $schedule->schedule_date >= $now) {
+            if (empty($schedule) || $schedule->schedule_date >= $now) {
                 return redirect()->route('user.sempro.index');
             }
         } else {

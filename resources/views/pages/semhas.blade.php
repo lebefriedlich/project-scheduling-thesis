@@ -11,7 +11,7 @@
                 @elseif ($semhas->is_submit ?? false)
                     <h3 class="text-center">Anda Telah Mengajukan Seminar Hasil</h3>
                 @else
-                    <h4 class="text-uppercase">Ajukan Jadwal Seminal Hasil</h4>
+                    <h4 class="text-uppercase">Ajukan Jadwal Seminar Hasil</h4>
 
                     <form action="{{ route('user.semhas.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf

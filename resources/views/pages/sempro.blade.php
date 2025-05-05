@@ -10,7 +10,7 @@
                 @elseif ($sempro->is_submit ?? false)
                     <h3 class="text-center">Anda Telah Mengajukan Seminar Proposal</h3>
                 @else
-                    <h4 class="text-uppercase">Ajukan Jadwal Seminal Proposal</h4>
+                    <h4 class="text-uppercase">Ajukan Jadwal Seminar Proposal</h4>
 
                     <form action="{{ route('user.sempro.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf

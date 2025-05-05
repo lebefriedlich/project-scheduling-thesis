@@ -36,7 +36,7 @@ class SkripsiController extends Controller
         if ($sempro) {
             $schedule = $sempro->schedules->first();
 
-            if ($schedule->schedule_date >= $now) {
+            if (empty($schedule) || $schedule->schedule_date >= $now) {
                 return redirect(route('user.sempro.index'));
             }
         } else {
@@ -48,7 +48,7 @@ class SkripsiController extends Controller
         if ($semhas) {
             $schedule = $semhas->schedules->first();
 
-            if ($schedule->schedule_date >= $now) {
+            if (empty($schedule) || $schedule->schedule_date >= $now) {
                 return redirect()->route('user.semhas.index');
             }
         } else {
