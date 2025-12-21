@@ -94,7 +94,7 @@
                     $isActiveSkripsi = false;
                 }
                 
-                $isActiveSkripsi = true;
+                // $isActiveSkripsi = true;
             @endphp
             @if ($isActiveSkripsi)
                 <li class="nav-item">

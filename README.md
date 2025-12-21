@@ -1,66 +1,87 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Project Scheduling Thesis
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel-based web application to manage and schedule academic activities (teaching schedules, proposal/final seminars, thesis defenses) with Livewire components, Excel import, and email notifications.
 
-## About Laravel
+## Overview
+- Manage core entities: Periods, Lecturers, Locations, Teaching Schedules, Seminars (Proposal/Final), and Thesis.
+- Admin UI built with Livewire for fast, reactive interactions.
+- Import teaching schedules from Excel via the import module.
+- Automated email notifications for scheduling and rejection events.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Key Features
+- Period management (`Periode`) to group schedules.
+- Lecturer (`Lecturer`) and location (`Location`) master data.
+- Teaching schedules (`TeachingSchedule`) with Excel import ([app/Imports/TeachingScheduleFullImport.php](app/Imports/TeachingScheduleFullImport.php)).
+- Proposal seminar (`Sempro`), final seminar/defense (`Semhas`), and thesis (`Skripsi`) scheduling.
+- Email notifications: [ScheduleNotification](app/Mail/ScheduleNotification.php), [ScheduleRejectionNotification](app/Mail/ScheduleRejectionNotification.php).
+- Admin interface powered by Livewire (components in [app/Livewire/Admin](app/Livewire/Admin)).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tech Stack
+- Laravel (primary framework)
+- Livewire (interactive components without a full SPA)
+- Vite (frontend build tooling)
+- Pest/PHPUnit (testing)
+- Maatwebsite Excel (Excel import)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Prerequisites
+- PHP 8.2+ and Composer
+- Node.js 18+ and npm
+- MySQL/MariaDB (or a database compatible with your Laravel config)
+- Common PHP extensions for Laravel (pdo, mbstring, openssl, tokenizer, etc.)
 
-## Learning Laravel
+## Quick Setup
+1. Clone or download this project.
+2. Install PHP dependencies:
+	```bash
+	composer install
+	```
+3. Create environment configuration:
+	- Copy `.env.example` to `.env` (or create `.env` if missing).
+	- Fill in `APP_URL`, `DB_*`, and mailer settings (`MAIL_*`).
+4. Generate the application key:
+	```bash
+	php artisan key:generate
+	```
+5. Run migrations (optionally seed basic data):
+	```bash
+	php artisan migrate --seed
+	```
+6. Install frontend dependencies and build assets:
+	```bash
+	npm install
+	npm run build
+	```
+	For development:
+	```bash
+	npm run dev
+	```
+7. Start the local server:
+	```bash
+	php artisan serve
+	```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Mail Configuration
+To enable email notifications, set the following variables in `.env`:
+- `MAIL_MAILER`, `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`, `MAIL_ENCRYPTION`, `MAIL_FROM_ADDRESS`, `MAIL_FROM_NAME`.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Related mailer classes:
+- [app/Mail/ScheduleNotification.php](app/Mail/ScheduleNotification.php)
+- [app/Mail/ScheduleRejectionNotification.php](app/Mail/ScheduleRejectionNotification.php)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Teaching Schedule Import
+- Excel import support is available in [app/Imports/TeachingScheduleFullImport.php](app/Imports/TeachingScheduleFullImport.php).
+- Use the admin interface to upload files (if provided). If no route/UI exists yet, add a controller action that leverages this importer.
 
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Key Directory Structure
+- Backend: [app](app)
+  - Models: [app/Models](app/Models)
+  - Controllers & Middleware: [app/Http](app/Http)
+  - Livewire Admin Components: [app/Livewire/Admin](app/Livewire/Admin)
+  - Mail: [app/Mail](app/Mail)
+- Application routes: [routes/web.php](routes/web.php)
+- Configuration: [config](config)
+- Database migrations: [database/migrations](database/migrations)
+- Views & assets: [resources/views](resources/views), [resources/js](resources/js), [resources/css](resources/css)
 
 ## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Contributions are welcome. Please open a pull request with a clear description and include tests when possible.
