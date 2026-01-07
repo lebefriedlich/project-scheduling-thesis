@@ -30,6 +30,73 @@
 </head>
 
 <body class="sidebar-expand">
+    <style>
+        /* Dark mode styling for dropdown menu */
+        body.dark .dropdown-menu {
+            background-color: #252837;
+            border-color: #222028;
+        }
+
+        body.dark .dropdown-item {
+            color: #fff;
+        }
+
+        body.dark .dropdown-item:hover,
+        body.dark .dropdown-item:focus {
+            background-color: #1e1d2b;
+            color: #fff;
+        }
+
+        body.dark .dropdown-item.text-danger:hover,
+        body.dark .dropdown-item.text-danger:focus {
+            color: #dc3545 !important;
+        }
+
+        /* Dark mode styling for Bootstrap modals */
+        body.dark .modal-content {
+            background-color: #252837;
+            color: #fff;
+        }
+
+        body.dark .modal-header {
+            border-bottom-color: #222028;
+        }
+
+        body.dark .modal-footer {
+            border-top-color: #222028;
+        }
+
+        body.dark .modal-body,
+        body.dark .modal-title {
+            color: #fff;
+        }
+
+        body.dark .form-header h3,
+        body.dark .form-header p {
+            color: #fff;
+        }
+
+        body.dark .form-control {
+            background-color: #1e1d2b;
+            border-color: #222028;
+            color: #fff;
+        }
+
+        body.dark .form-control:focus {
+            background-color: #1e1d2b;
+            border-color: #3c21f7;
+            color: #fff;
+        }
+
+        body.dark .form-label,
+        body.dark label {
+            color: #fff;
+        }
+
+        body.dark .btn-close {
+            filter: invert(1) grayscale(100%) brightness(200%);
+        }
+    </style>
     <div class="scale-wrapper">
         {{-- @if ($errors->any())
             <div class="position-fixed" style="top: 100px; right: 20px; z-index: 1050;">

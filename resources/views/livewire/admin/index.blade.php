@@ -224,8 +224,4 @@
             </div>
         </div>
     </div>
-
-    <div wire:loading>
-        <x-loading />
-    </div>
 </div>

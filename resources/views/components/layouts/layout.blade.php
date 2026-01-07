@@ -46,7 +46,7 @@
     @endif
 
     @if (session('error'))
-        <div class="position-fixed" style="top: 100px; right: 20px; z-index: 1050;">
+        <div class="position-fixed" style="top: 50px; right: 20px; z-index: 1050;">
             <div class="alert alert-danger alert-dismissible fade show auto-dismiss" role="alert">
                 <strong>{{ session('error') }}</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
@@ -57,7 +57,7 @@
     @endif
 
     @if (session('success'))
-        <div class="position-fixed" style="top: 100px; right: 20px; z-index: 1050;">
+        <div class="position-fixed" style="top: 50px; right: 20px; z-index: 1050;">
             <div class="alert alert-success alert-dismissible fade show auto-dismiss" role="alert">
                 <strong>{{ session('success') }}</strong>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>

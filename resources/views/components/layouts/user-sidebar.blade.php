@@ -53,8 +53,6 @@
                 } else {
                     $isActiveSemhas = false;
                 }
-
-                $isActiveSemhas = true;
             @endphp
 
             @if ($isActiveSemhas)

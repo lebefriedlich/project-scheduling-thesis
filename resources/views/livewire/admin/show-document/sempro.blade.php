@@ -16,9 +16,6 @@
                         </button>
                         <a href="{{ route('admin.acc-schedule.index', ['exam_id' => $datas->id, 'exam_type' => 'Sempro']) }}"
                             class="btn btn-primary btn-lg mr-15 fs-16">Atur Jadwal</a>
-                        <div wire:loading>
-                            <x-loading />
-                        </div>
                     </div>
                 </div>
             </div>

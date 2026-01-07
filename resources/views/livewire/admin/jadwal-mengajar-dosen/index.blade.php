@@ -150,10 +150,6 @@
         </div>
     </div>
 
-    <div wire:loading>
-        <x-loading />
-    </div>
-
     @push('scripts')
         <script>
             Livewire.on('tableUpdated', function() {
@@ -169,5 +165,52 @@
                 }
             });
         </script>
+    @endpush
+
+    @push('styles')
+        <style>
+            /* Dark mode styling for modals */
+            body.dark .modal-content {
+                background-color: #252837;
+                color: #fff;
+            }
+
+            body.dark .modal-header {
+                border-bottom-color: #222028;
+            }
+
+            body.dark .modal-footer {
+                border-top-color: #222028;
+            }
+
+            body.dark .modal-body {
+                color: #fff;
+            }
+
+            body.dark .modal-title {
+                color: #fff;
+            }
+
+            body.dark .form-control {
+                background-color: #1e1d2b;
+                border-color: #222028;
+                color: #fff;
+            }
+
+            body.dark .form-control:focus {
+                background-color: #1e1d2b;
+                border-color: #3c21f7;
+                color: #fff;
+            }
+
+            body.dark .form-label,
+            body.dark label {
+                color: #fff;
+            }
+
+            body.dark .btn-close {
+                filter: invert(1) grayscale(100%) brightness(200%);
+            }
+        </style>
     @endpush
 </div>

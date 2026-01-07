@@ -23,7 +23,7 @@ class AuthController extends Controller
             // Validasi email harus dari student.uin-malang.ac.id
             if (
                 !str_ends_with($googleUser->getEmail(), '@student.uin-malang.ac.id') &&
-                $googleUser->getEmail() != 'teknikinformatika.uinmalang@gmail.com'
+                $googleUser->getEmail() != 'noval.akbar.906@gmail.com'
             ) {
                 return redirect(route('login'))->with('error', 'Email tidak valid.');
             }

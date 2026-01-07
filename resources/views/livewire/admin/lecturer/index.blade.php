@@ -117,8 +117,4 @@
             </div>
         </div>
     @endforeach
-
-    <div wire:loading>
-        <x-loading />
-    </div>
 </div>

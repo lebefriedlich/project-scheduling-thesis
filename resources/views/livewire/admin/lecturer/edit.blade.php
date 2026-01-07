@@ -31,9 +31,6 @@
                         <button type="button" class="btn btn-primary btn-lg fs-16" wire:click="submit">
                             Submit
                         </button>
-                        <div wire:loading>
-                            <x-loading />
-                        </div>
                     </div>
                 </div>
             </div>
